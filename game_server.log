@@ -100,3 +100,98 @@
 2024-11-20 11:01:27,554 - INFO - Player 67185747-a6ca-41e6-af8f-83618af336f5 moved to security. Room occupancy: {'cafeteria': 0, 'upper_engine': 1, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
 2024-11-20 11:49:44,979 - INFO - Player 67185747-a6ca-41e6-af8f-83618af336f5 disconnected.
 2024-11-20 11:49:44,979 - INFO - connection closed
+2024-11-20 11:58:51,825 - INFO - Player 5b16067a-5c4d-4eec-8d96-596794d0c65f disconnected.
+2024-11-20 11:58:51,826 - INFO - connection closed
+2024-11-20 11:58:57,227 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 11:58:57,227 - INFO - server listening on [::1]:8765
+2024-11-20 11:58:57,227 - INFO - Server started on ws://localhost:8765
+2024-11-20 11:59:11,665 - INFO - connection open
+2024-11-20 11:59:11,665 - INFO - Player fe19ba65-4502-4765-a637-13770cf32ecf connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 11:59:12,897 - INFO - Player fe19ba65-4502-4765-a637-13770cf32ecf disconnected.
+2024-11-20 11:59:12,897 - INFO - connection closed
+2024-11-20 11:59:33,950 - INFO - connection open
+2024-11-20 11:59:33,951 - INFO - Player b76633c2-8477-45e0-b095-6acb2e2b604e connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 11:59:34,760 - INFO - Player b76633c2-8477-45e0-b095-6acb2e2b604e disconnected.
+2024-11-20 11:59:34,761 - INFO - connection closed
+2024-11-20 11:59:42,098 - INFO - connection open
+2024-11-20 11:59:42,098 - INFO - Player 38f818cc-f4eb-4b8c-8d93-0e947842bd57 connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 11:59:42,945 - INFO - Player 38f818cc-f4eb-4b8c-8d93-0e947842bd57 disconnected.
+2024-11-20 11:59:42,945 - INFO - connection closed
+2024-11-20 11:59:46,399 - INFO - connection open
+2024-11-20 11:59:46,399 - INFO - Player e6404346-3aa4-4f1a-8279-51f9680b3482 connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 11:59:47,218 - INFO - Player e6404346-3aa4-4f1a-8279-51f9680b3482 disconnected.
+2024-11-20 11:59:47,218 - INFO - connection closed
+2024-11-20 12:02:27,648 - INFO - connection open
+2024-11-20 12:02:27,649 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd connected. Room occupancy: {'cafeteria': 5, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:02:40,956 - INFO - connection open
+2024-11-20 12:02:40,957 - INFO - Player 9672e016-1560-4f30-8587-3c54645fc33f connected. Room occupancy: {'cafeteria': 6, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:02:50,930 - INFO - connection open
+2024-11-20 12:02:50,930 - INFO - Player 9698f987-5664-4b74-9887-758f5995cb02 connected. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:02:56,252 - INFO - connection open
+2024-11-20 12:02:56,252 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 connected. Room occupancy: {'cafeteria': 8, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:03:09,301 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to medbay. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:03:11,219 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to engine_room. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:03:13,060 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to medbay. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:03:14,037 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to cafeteria. Room occupancy: {'cafeteria': 8, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:03:16,408 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to upper_engine. Room occupancy: {'cafeteria': 7, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:03:17,658 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to reactor. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 1, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:03:20,342 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to upper_engine. Room occupancy: {'cafeteria': 7, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:03:21,716 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to cafeteria. Room occupancy: {'cafeteria': 8, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:03:31,777 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to medbay. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:03:34,096 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to cafeteria. Room occupancy: {'cafeteria': 8, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:03:36,191 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to medbay. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:03:38,931 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to cafeteria. Room occupancy: {'cafeteria': 8, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:34,967 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to medbay. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:04:35,600 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to engine_room. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:36,093 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to security. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:36,470 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to electrical. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:37,252 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to lower_engine. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:37,657 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to electrical. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:38,193 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to security. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:38,675 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to engine_room. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:39,191 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to upper_engine. Room occupancy: {'cafeteria': 7, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:39,998 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to cafeteria. Room occupancy: {'cafeteria': 8, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:41,486 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to upper_engine. Room occupancy: {'cafeteria': 7, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:04:59,771 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to medbay. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:05:00,618 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to engine_room. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:01,403 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to upper_engine. Room occupancy: {'cafeteria': 6, 'upper_engine': 2, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:02,129 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to reactor. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 1, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:02,607 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to security. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:03,444 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to electrical. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:04,117 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to lower_engine. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:04,440 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to electrical. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:04,791 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to security. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:05,233 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to engine_room. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:05,811 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to medbay. Room occupancy: {'cafeteria': 6, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:05:06,336 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 moved to cafeteria. Room occupancy: {'cafeteria': 7, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:42,997 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to cafeteria. Room occupancy: {'cafeteria': 8, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:05:44,172 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to upper_engine. Room occupancy: {'cafeteria': 7, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:06:12,836 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to cafeteria. Room occupancy: {'cafeteria': 8, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:06:13,544 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to medbay. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:06:14,817 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to engine_room. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:06:15,779 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to security. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:06:16,402 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to electrical. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:06:19,598 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to security. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:06:20,507 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to engine_room. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:06:21,281 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to security. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:07:00,387 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to engine_room. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:07:07,057 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd moved to security. Room occupancy: {'cafeteria': 7, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:07:12,289 - INFO - Player 9672e016-1560-4f30-8587-3c54645fc33f disconnected.
+2024-11-20 12:07:12,289 - INFO - connection closed
+2024-11-20 12:07:12,289 - INFO - Player 10da9c6a-1b50-47dc-95e8-2fcbed7bc727 disconnected.
+2024-11-20 12:07:12,289 - INFO - connection closed
+2024-11-20 12:07:12,290 - INFO - Player 3eca5cf2-263b-416f-ba57-c675144754fd disconnected.
+2024-11-20 12:07:12,290 - INFO - connection closed
+2024-11-20 12:07:12,290 - INFO - Player 9698f987-5664-4b74-9887-758f5995cb02 disconnected.
+2024-11-20 12:07:12,290 - INFO - connection closed
+2024-11-20 12:07:15,423 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:07:15,423 - INFO - server listening on [::1]:8765
+2024-11-20 12:07:15,423 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:07:17,008 - INFO - connection open
+2024-11-20 12:07:17,009 - INFO - Player 6a1a239e-72bb-401c-9208-12048aeacf9a connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:07:17,953 - INFO - connection open
+2024-11-20 12:07:17,953 - INFO - Player 70233605-cbdd-4e42-94a7-c36f6bbf4dd2 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:07:21,093 - INFO - connection open
+2024-11-20 12:07:21,094 - INFO - Player 1836c93d-3138-4b67-ae4a-300ac2d84c39 connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:07:22,216 - INFO - connection open
+2024-11-20 12:07:22,216 - INFO - Player 7871e67a-c72c-4ee7-b04a-8ca64655353e connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
