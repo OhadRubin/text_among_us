@@ -22,8 +22,12 @@ class GameServer:
         self.roles = {}  # player_id -> role
         self.player_status = {}  # player_id -> "alive" or "dead"
         self.bodies = {}  # player_id -> location
+        self.PROXIMITY_RADIUS = "same_room"  # Bodies can only be reported in same room
         self.setup_logging()
         self.exit_buttons = {}  # Store button rectangles for click detection
+        self.game_started = (
+            False  # Added to prevent role reassignment and new connections mid-game
+        )
 
     def setup_logging(self):
         logging.basicConfig(
@@ -53,14 +57,26 @@ class GameServer:
         return self.room_occupancy[room_name] < capacity
 
     async def handle_connection(self, websocket, path):
+        if self.game_started:
+            await websocket.send(
+                json.dumps(
+                    {
+                        "type": "error",
+                        "payload": {
+                            "message": "Game already in progress. Please wait."
+                        },
+                    }
+                )
+            )
+            return
+
         player_id = self.generate_unique_id()
         initial_location = "cafeteria"
         self.players[player_id] = {"websocket": websocket, "location": initial_location}
-        # Initialize player status
         self.player_status[player_id] = "alive"
         self.room_occupancy[initial_location] += 1
 
-        # Broadcast new player connection to all existing players
+        # Broadcast new player connection
         await self.broadcast_message(
             {
                 "type": "player_update",
@@ -75,13 +91,20 @@ class GameServer:
         # Update state for all players in the initial room
         await self.update_room_players(initial_location)
 
-        # Assign roles if enough players
-        if len(self.players) >= 4:  # Minimum players for role assignment
+        # Check if we should start the game and assign roles
+        if len(self.players) >= 4 and not self.game_started:
             self.assign_roles()
+            self.game_started = True
+            logging.info("Game started with {} players".format(len(self.players)))
+            # Broadcast game start
+            await self.broadcast_message(
+                {
+                    "type": "game_update",
+                    "payload": {"event": "game_started"},
+                }
+            )
 
-        logging.info(
-            f"Player {player_id} connected. Room occupancy: {self.room_occupancy}"
-        )
+        logging.info(f"Player {player_id} connected. Room occupancy: {self.room_occupancy}")
         try:
             await self.send_state_update(player_id)
             async for message in websocket:
@@ -116,23 +139,38 @@ class GameServer:
             logging.info(f"Player {player_id} disconnected.")
 
     def assign_roles(self):
-        player_ids = list(self.players.keys())
-        if not player_ids:
+        # Check if there are enough players
+        if len(self.players) < 4:
             return
 
+        player_ids = list(self.players.keys())
         total_players = len(player_ids)
-        impostor_count = 1 if total_players <= 5 else 2
+        impostor_count = 1 if total_players <= 7 else 2  # Adjusted threshold for 2 impostors
 
+        # Randomly select impostors
         impostor_ids = random.sample(player_ids, impostor_count)
 
+        # Clear existing roles before reassigning
+        self.roles.clear()
+
+        # Assign roles to all players
         for player_id in player_ids:
-            self.roles[player_id] = (
-                "Impostor" if player_id in impostor_ids else "Crewmate"
-            )
+            role = "Impostor" if player_id in impostor_ids else "Crewmate"
+            self.roles[player_id] = role
+            
+            # Send individual role update to each player
+            asyncio.create_task(self.send_state_update(player_id))
+
+        logging.info(f"Roles assigned. Impostors: {impostor_ids}")
 
     async def process_message(self, message, player_id):
         data = json.loads(message)
         if data["type"] == "action":
+            if self.player_status.get(player_id) != "alive":
+                await self.send_error(
+                    player_id, "You are dead and cannot perform actions."
+                )
+                return
             action = data["payload"]["action"]
             if action == "move":
                 destination = data["payload"]["destination"]
@@ -149,6 +187,9 @@ class GameServer:
         return destination in self.map_structure.get(current_location, [])
 
     async def handle_move(self, player_id, destination):
+        if self.player_status.get(player_id) != "alive":
+            await self.send_error(player_id, "You are dead and cannot move.")
+            return
         current_location = self.players[player_id]["location"]
         if self.validate_move(current_location, destination) and self.can_enter_room(
             destination
@@ -197,29 +238,60 @@ class GameServer:
                 await self.send_state_update(pid)
 
     async def handle_kill(self, killer_id, target_id):
+        if not target_id:
+            await self.send_error(killer_id, "No target specified for kill action.")
+            return
         if not self.validate_kill(killer_id, target_id):
             await self.send_error(killer_id, "Invalid kill attempt")
             return
 
         self.player_status[target_id] = "dead"
         self.bodies[target_id] = self.players[target_id]["location"]
+        # Update room occupancy when player dies
+        location = self.players[target_id]["location"]
+        self.room_occupancy[location] -= 1
 
         await self.send_state_update(killer_id)
         await self.send_state_update(target_id)
 
+        # Notify others in the room
+        await self.broadcast_message(
+            {
+                "type": "event",
+                "payload": {
+                    "event": "player_killed",
+                    "killer": killer_id,
+                    "victim": target_id,
+                    "location": location,
+                },
+            }
+        )
+
     def validate_kill(self, killer_id, target_id):
         return (
             self.roles.get(killer_id) == "Impostor"
-            and self.player_status[killer_id] == "alive"
-            and self.player_status[target_id] == "alive"
+            and self.player_status.get(killer_id) == "alive"
+            and self.player_status.get(target_id) == "alive"
             and self.players[killer_id]["location"]
             == self.players[target_id]["location"]
         )
 
     async def handle_report(self, reporter_id):
         if not self.validate_report(reporter_id):
-            await self.send_error(reporter_id, "Nothing to report")
+            await self.send_error(reporter_id, "No bodies nearby to report")
             return
+
+        # Get all bodies in reporter's room
+        reporter_location = self.players[reporter_id]["location"]
+        reported_bodies = [
+            body_id
+            for body_id, location in self.bodies.items()
+            if location == reporter_location
+        ]
+
+        # Remove bodies from the game after reporting
+        for body_id in reported_bodies:
+            del self.bodies[body_id]
 
         await self.broadcast_message(
             {
@@ -227,12 +299,18 @@ class GameServer:
                 "payload": {
                     "event": "body_reported",
                     "reporter": reporter_id,
-                    "location": self.players[reporter_id]["location"],
+                    "location": reporter_location,
+                    "bodies": reported_bodies,
                 },
             }
         )
 
     def validate_report(self, reporter_id):
+        # Check if reporter is alive
+        if self.player_status.get(reporter_id) != "alive":
+            return False
+
+        # Check if there are any bodies in the same room
         reporter_location = self.players[reporter_id]["location"]
         return any(
             location == reporter_location for body_id, location in self.bodies.items()
@@ -244,11 +322,20 @@ class GameServer:
 
     async def send_state_update(self, player_id):
         location = self.players[player_id]["location"]
-        available_exits = self.map_structure.get(location, [])
-        exits_status = {
-            exit: "full" if not self.can_enter_room(exit) else "available"
-            for exit in available_exits
-        }
+        if self.player_status.get(player_id) != "alive":
+            available_exits = []
+            exits_status = {}
+        else:
+            available_exits = self.map_structure.get(location, [])
+            exits_status = {
+                exit: "full" if not self.can_enter_room(exit) else "available"
+                for exit in available_exits
+            }
+
+        # Get bodies in current room
+        bodies_in_room = [
+            body_id for body_id, body_loc in self.bodies.items() if body_loc == location
+        ]
 
         state_message = {
             "type": "state",
@@ -260,6 +347,7 @@ class GameServer:
                 "exits_status": exits_status,
                 "role": self.roles.get(player_id),
                 "status": self.player_status.get(player_id),
+                "bodies_in_room": bodies_in_room,  # Add bodies in room to state
             },
             "player_id": player_id,
         }
@@ -272,7 +360,7 @@ class GameServer:
                 "role": self.roles.get(pid, "unknown"),
             }
             for pid, data in self.players.items()
-            if data["location"] == location
+            if data["location"] == location and self.player_status.get(pid) == "alive"
         }
 
     async def send_error(self, player_id, message):
@@ -354,15 +442,22 @@ class CliGameClient:
                     player = payload.get("player_id")
                     event = payload.get("event")
                     location = payload.get("location")
-                    if (
-                        player != self.player_id
-                    ):  # Don't show own connection/disconnection
+                    if player != self.player_id:
                         print(f"\nPlayer {player} {event} in {location}")
                         print("> ", end="", flush=True)  # Restore prompt
                 elif message_type == "error":
                     payload = data.get("payload")
                     error_message = payload.get("message")
                     print(f"Error: {error_message}")
+                elif message_type == "event":
+                    payload = data.get("payload")
+                    event = payload.get("event")
+                    if event == "body_reported":
+                        print(f"\nBody reported by Player {payload.get('reporter')}")
+                        print("> ", end="", flush=True)
+                    elif event == "player_killed":
+                        print(f"\nPlayer {payload.get('victim')} was killed")
+                        print("> ", end="", flush=True)
                 else:
                     print("Received unknown message type.")
         except websockets.exceptions.ConnectionClosed:
@@ -444,6 +539,13 @@ class CliGameClient:
             status = self.state_data.get("status", "Unknown")
             print(f"Role: {role}")
             print(f"Status: {status}")
+
+            # Show if there are any bodies in the room
+            bodies_in_room = self.state_data.get("bodies_in_room", [])
+            if bodies_in_room:
+                print("\nDead bodies in this room:")
+                for body_id in bodies_in_room:
+                    print(f"  - Body of Player {body_id}")
 
             players_in_room = self.state_data.get("players_in_room", {})
             if players_in_room:
@@ -555,17 +657,13 @@ class GuiGameClient:
                     self.location = payload.get("location")
                     self.available_exits = payload.get("available_exits")
                     self.state_data = payload
-                    self.bodies_in_room = set()  # Reset bodies
-                    # Check for bodies in the room
-                    for pid, player_data in payload.get("players_in_room", {}).items():
-                        if player_data.get("status") == "dead":
-                            self.bodies_in_room.add(pid)
+                    self.bodies_in_room = set(payload.get("bodies_in_room", []))
                 elif message_type == "movement":
                     payload = data.get("payload")
                     player = payload.get("player_id")
                     from_room = payload.get("from")
                     to_room = payload.get("to")
-                    if player != self.player_id:  # Don't show own movements
+                    if player != self.player_id:
                         logging.info(
                             f"Player {player} moved from {from_room} to {to_room}"
                         )
@@ -574,14 +672,21 @@ class GuiGameClient:
                     player = payload.get("player_id")
                     event = payload.get("event")
                     location = payload.get("location")
-                    if (
-                        player != self.player_id
-                    ):  # Don't show own connection/disconnection
+                    if player != self.player_id:
                         logging.info(f"Player {player} {event} in {location}")
                 elif message_type == "error":
                     payload = data.get("payload")
                     error_message = payload.get("message")
                     logging.error(f"Error: {error_message}")
+                elif message_type == "event":
+                    payload = data.get("payload")
+                    event = payload.get("event")
+                    if event == "body_reported":
+                        logging.info(
+                            f"Body reported by Player {payload.get('reporter')}"
+                        )
+                    elif event == "player_killed":
+                        logging.info(f"Player {payload.get('victim')} was killed")
                 else:
                     logging.info("Received unknown message type.")
         except websockets.exceptions.ConnectionClosed:
@@ -669,7 +774,7 @@ class GuiGameClient:
 
     def render(self):
         self.screen.fill((0, 0, 0))  # Clear screen with black background
-        self.exit_buttons.clear()     # Clear old exit buttons before adding new ones
+        self.exit_buttons.clear()  # Clear old exit buttons before adding new ones
 
         # Constants for layout
         MARGIN = 20
@@ -726,7 +831,9 @@ class GuiGameClient:
 
                 # Player text
                 player_text = f"Player {pid[:8]}"
-                text_color = (100, 255, 100) if data["status"] == "alive" else (255, 100, 100)
+                text_color = (
+                    (100, 255, 100) if data["status"] == "alive" else (255, 100, 100)
+                )
                 player_surface = self.font.render(player_text, True, text_color)
                 text_rect = player_surface.get_rect(
                     midleft=(x + 5, y + 15)  # Adjusted y position
@@ -734,7 +841,11 @@ class GuiGameClient:
                 self.screen.blit(player_surface, text_rect)
 
                 # Add action buttons if conditions are met
-                if data["status"] == "alive" and self.state_data.get("role") == "Impostor":
+                if (
+                    data["status"] == "alive"
+                    and self.state_data.get("role") == "Impostor"
+                    and self.state_data.get("status") == "alive"
+                ):
                     kill_button = pygame.Rect(x + 5, y + 30, 60, 20)
                     pygame.draw.rect(self.screen, (200, 0, 0), kill_button)
                     kill_text = self.font.render("Kill", True, (255, 255, 255))
@@ -742,19 +853,21 @@ class GuiGameClient:
                     self.screen.blit(kill_text, kill_text_rect)
                     self.action_buttons[("kill", pid)] = kill_button
 
-        # Add report button if there are bodies in the room
-        if self.bodies_in_room:
-            report_button = pygame.Rect(
-                self.screen.get_width() - 150,
-                MARGIN + TOP_INFO_HEIGHT + 10,
-                100,
-                30
-            )
-            pygame.draw.rect(self.screen, (255, 0, 0), report_button)
-            report_text = self.font.render("REPORT", True, (255, 255, 255))
-            report_text_rect = report_text.get_rect(center=report_button.center)
-            self.screen.blit(report_text, report_text_rect)
-            self.action_buttons[("report", None)] = report_button
+        # Only show report button if there are bodies in the current room
+        if self.state_data:
+            bodies_in_room = self.state_data.get("bodies_in_room", [])
+            if bodies_in_room and self.state_data.get("status") == "alive":
+                report_button = pygame.Rect(
+                    self.screen.get_width() - 150,
+                    MARGIN + TOP_INFO_HEIGHT + 10,
+                    100,
+                    30,
+                )
+                pygame.draw.rect(self.screen, (255, 0, 0), report_button)
+                report_text = self.font.render("REPORT", True, (255, 255, 255))
+                report_text_rect = report_text.get_rect(center=report_button.center)
+                self.screen.blit(report_text, report_text_rect)
+                self.action_buttons[("report", None)] = report_button
 
         # Draw Destinations Box
         dest_box_y = self.screen.get_height() - DESTINATIONS_BOX_HEIGHT - MARGIN
@@ -823,7 +936,6 @@ class GuiGameClient:
             y_offset += 30
 
     def display_current_location(self):
-        # Since the current location is always displayed, we can log it
         if not self.location:
             logging.info("Waiting for game state...")
             return
@@ -843,7 +955,6 @@ class GuiGameClient:
                         logging.info(f"  - Player {pid} ({data['status']})")
 
     def display_map(self):
-        # The map is always displayed in the game window
         logging.info("Map is displayed on the game screen.")
 
     async def send_move_command(self, destination):
