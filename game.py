@@ -16,18 +16,13 @@ class GameServer:
     def __init__(self):
         self.players = {}  # key: player_id, value: dict with 'websocket' and 'location'
         self.map_structure = self.initialize_map()
-        # Initialize room occupancy tracking
-        self.room_occupancy = {room_name: 0 for room_name in self.map_structure.keys()}
-        # Add new role-related attributes
         self.roles = {}  # player_id -> role
         self.player_status = {}  # player_id -> "alive" or "dead"
         self.bodies = {}  # player_id -> location
         self.PROXIMITY_RADIUS = "same_room"  # Bodies can only be reported in same room
         self.setup_logging()
         self.exit_buttons = {}  # Store button rectangles for click detection
-        self.game_started = (
-            False  # Added to prevent role reassignment and new connections mid-game
-        )
+        self.game_started = False
 
     def setup_logging(self):
         logging.basicConfig(
@@ -52,10 +47,6 @@ class GameServer:
     def generate_unique_id(self):
         return str(uuid.uuid4())
 
-    def can_enter_room(self, room_name):
-        capacity = 10 if room_name == "cafeteria" else 5
-        return self.room_occupancy[room_name] < capacity
-
     async def handle_connection(self, websocket, path):
         if self.game_started:
             await websocket.send(
@@ -74,7 +65,6 @@ class GameServer:
         initial_location = "cafeteria"
         self.players[player_id] = {"websocket": websocket, "location": initial_location}
         self.player_status[player_id] = "alive"
-        self.room_occupancy[initial_location] += 1
 
         # Broadcast new player connection
         await self.broadcast_message(
@@ -104,7 +94,7 @@ class GameServer:
                 }
             )
 
-        logging.info(f"Player {player_id} connected. Room occupancy: {self.room_occupancy}")
+        logging.info(f"Player {player_id} connected.")
         try:
             await self.send_state_update(player_id)
             async for message in websocket:
@@ -114,7 +104,6 @@ class GameServer:
         finally:
             # Broadcast player disconnection before cleanup
             current_location = self.players[player_id]["location"]
-            self.room_occupancy[current_location] -= 1
 
             if player_id in self.roles:
                 del self.roles[player_id]
@@ -191,45 +180,26 @@ class GameServer:
             await self.send_error(player_id, "You are dead and cannot move.")
             return
         current_location = self.players[player_id]["location"]
-        if self.validate_move(current_location, destination) and self.can_enter_room(
-            destination
-        ):
-            # Update room occupancy
-            self.room_occupancy[current_location] -= 1
-            self.room_occupancy[destination] += 1
-            # Update player location
+        if self.validate_move(current_location, destination):
             self.players[player_id]["location"] = destination
 
             # Broadcast movement to all players
-            await self.broadcast_message(
-                {
-                    "type": "movement",
-                    "payload": {
-                        "player_id": player_id,
-                        "from": current_location,
-                        "to": destination,
-                    },
+            await self.broadcast_message({
+                "type": "movement",
+                "payload": {
+                    "player_id": player_id,
+                    "from": current_location,
+                    "to": destination,
                 }
-            )
+            })
 
             # Send individual state updates to affected rooms' players
-            await self.update_room_players(
-                current_location
-            )  # Update players in the old room
-            await self.update_room_players(
-                destination
-            )  # Update players in the new room
+            await self.update_room_players(current_location)  # Update players in the old room
+            await self.update_room_players(destination)  # Update players in the new room
 
-            logging.info(
-                f"Player {player_id} moved to {destination}. Room occupancy: {self.room_occupancy}"
-            )
+            logging.info(f"Player {player_id} moved to {destination}.")
         else:
-            error_msg = (
-                "Room is full"
-                if not self.can_enter_room(destination)
-                else "Invalid move"
-            )
-            await self.send_error(player_id, error_msg)
+            await self.send_error(player_id, "Invalid move")
 
     async def update_room_players(self, room_name):
         """Send state updates to all players in a specific room"""
@@ -248,8 +218,6 @@ class GameServer:
         self.player_status[target_id] = "dead"
         location = self.players[target_id]["location"]
         self.bodies[target_id] = location
-        # Update room occupancy when player dies
-        self.room_occupancy[location] -= 1
 
         # Update all players in the room where the kill occurred
         for pid, player_data in self.players.items():
@@ -328,8 +296,7 @@ class GameServer:
         else:
             available_exits = self.map_structure.get(location, [])
             exits_status = {
-                exit: "full" if not self.can_enter_room(exit) else "available"
-                for exit in available_exits
+                exit: "available" for exit in available_exits  # All exits are now always available
             }
 
         # Get bodies in current room
@@ -343,11 +310,10 @@ class GameServer:
                 "location": location,
                 "players_in_room": self.get_players_in_room(location),
                 "available_exits": available_exits,
-                "room_capacity": 10 if location == "cafeteria" else 5,
                 "exits_status": exits_status,
                 "role": self.roles.get(player_id),
                 "status": self.player_status.get(player_id),
-                "bodies_in_room": bodies_in_room,  # Add bodies in room to state
+                "bodies_in_room": bodies_in_room,
             },
             "player_id": player_id,
         }
