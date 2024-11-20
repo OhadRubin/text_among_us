@@ -246,26 +246,26 @@ class GameServer:
             return
 
         self.player_status[target_id] = "dead"
-        self.bodies[target_id] = self.players[target_id]["location"]
-        # Update room occupancy when player dies
         location = self.players[target_id]["location"]
+        self.bodies[target_id] = location
+        # Update room occupancy when player dies
         self.room_occupancy[location] -= 1
 
-        await self.send_state_update(killer_id)
-        await self.send_state_update(target_id)
+        # Update all players in the room where the kill occurred
+        for pid, player_data in self.players.items():
+            if player_data["location"] == location:
+                await self.send_state_update(pid)
 
         # Notify others in the room
-        await self.broadcast_message(
-            {
-                "type": "event",
-                "payload": {
-                    "event": "player_killed",
-                    "killer": killer_id,
-                    "victim": target_id,
-                    "location": location,
-                },
+        await self.broadcast_message({
+            "type": "event",
+            "payload": {
+                "event": "player_killed",
+                "killer": killer_id,
+                "victim": target_id,
+                "location": location,
             }
-        )
+        })
 
     def validate_kill(self, killer_id, target_id):
         return (
@@ -594,6 +594,9 @@ class GuiGameClient:
         self.exit_buttons = {}  # Store button rectangles for click detection
         self.action_buttons = {}  # Store action button rectangles
         self.bodies_in_room = set()  # Track dead bodies in current room
+        self.show_murder_overlay = False
+        self.murder_overlay_start = 0
+        self.MURDER_OVERLAY_DURATION = 3000  # Display for 3 seconds
 
     def setup_logging(self):
         logging.basicConfig(
@@ -682,6 +685,7 @@ class GuiGameClient:
                     payload = data.get("payload")
                     event = payload.get("event")
                     if event == "body_reported":
+                        self.show_murder_notification()
                         logging.info(
                             f"Body reported by Player {payload.get('reporter')}"
                         )
@@ -907,6 +911,29 @@ class GuiGameClient:
                 # Store button rect for click detection
                 self.exit_buttons[exit_name] = button_rect
 
+        # Draw murder overlay if active
+        current_time = pygame.time.get_ticks()
+        if self.show_murder_overlay:
+            if current_time - self.murder_overlay_start < self.MURDER_OVERLAY_DURATION:
+                # Create semi-transparent overlay
+                overlay = pygame.Surface((self.screen.get_width(), self.screen.get_height()))
+                overlay.fill((200, 0, 0))  # Red background
+                overlay.set_alpha(128)  # Semi-transparent
+                self.screen.blit(overlay, (0, 0))
+                
+                # Create large text
+                large_font = pygame.font.SysFont(None, 74)  # Bigger font for dramatic effect
+                text = large_font.render("THERE HAS BEEN A MURDER!!", True, (255, 255, 255))
+                text_rect = text.get_rect(center=(self.screen.get_width() // 2, self.screen.get_height() // 2))
+                
+                # Add shadow effect for better visibility
+                shadow = large_font.render("THERE HAS BEEN A MURDER!!", True, (0, 0, 0))
+                shadow_rect = shadow.get_rect(center=(text_rect.centerx + 2, text_rect.centery + 2))
+                self.screen.blit(shadow, shadow_rect)
+                self.screen.blit(text, text_rect)
+            else:
+                self.show_murder_overlay = False
+
         # Display help hint
         help_text = "Press H for help"
         help_surface = self.font.render(help_text, True, (150, 150, 150))
@@ -992,6 +1019,10 @@ class GuiGameClient:
         if self.websocket is not None and not self.websocket.closed:
             await self.websocket.close()
         logging.info("You have exited the game.")
+
+    def show_murder_notification(self):
+        self.show_murder_overlay = True
+        self.murder_overlay_start = pygame.time.get_ticks()
 
 
 def start_gui_client():
