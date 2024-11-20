@@ -1,0 +1,28 @@
+2024-11-20 10:23:14,652 - INFO - server listening on [::1]:8765
+2024-11-20 10:23:14,653 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 10:23:14,653 - INFO - Server started on ws://localhost:8765
+2024-11-20 10:23:22,252 - INFO - connection open
+2024-11-20 10:23:22,252 - INFO - Player f6a2522d-29d8-4539-b628-bb12bdbb8032 connected.
+2024-11-20 10:23:47,008 - INFO - connection open
+2024-11-20 10:23:47,008 - INFO - Player 2388807b-1c53-4643-a310-df37e8bda64b connected.
+2024-11-20 10:24:02,204 - INFO - Player 2388807b-1c53-4643-a310-df37e8bda64b moved to upper_engine.
+2024-11-20 10:25:19,641 - INFO - Player 2388807b-1c53-4643-a310-df37e8bda64b moved to reactor.
+2024-11-20 10:28:34,337 - INFO - Player 2388807b-1c53-4643-a310-df37e8bda64b disconnected.
+2024-11-20 10:28:34,337 - INFO - connection closed
+2024-11-20 10:28:34,337 - INFO - Player f6a2522d-29d8-4539-b628-bb12bdbb8032 disconnected.
+2024-11-20 10:28:34,337 - INFO - connection closed
+2024-11-20 10:29:37,143 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 10:29:37,143 - INFO - server listening on [::1]:8765
+2024-11-20 10:29:37,143 - INFO - Server started on ws://localhost:8765
+2024-11-20 10:29:42,439 - INFO - connection open
+2024-11-20 10:29:42,439 - INFO - Player 0cf240ca-4f88-48ed-9e41-3197a04d46fe connected.
+2024-11-20 10:29:43,545 - INFO - Player 0cf240ca-4f88-48ed-9e41-3197a04d46fe disconnected.
+2024-11-20 10:29:43,545 - INFO - connection closed
+2024-11-20 10:32:41,570 - INFO - connection open
+2024-11-20 10:32:41,570 - INFO - Player 2e2293a9-44ba-4ac4-8e23-b5776448f0e5 connected.
+2024-11-20 10:32:42,696 - INFO - Player 2e2293a9-44ba-4ac4-8e23-b5776448f0e5 disconnected.
+2024-11-20 10:32:42,696 - INFO - connection closed
+2024-11-20 10:33:21,506 - INFO - connection open
+2024-11-20 10:33:21,506 - INFO - Player 4c2c8845-d6b6-4b9c-a2c5-f1fe062520d2 connected.
+2024-11-20 10:33:23,573 - INFO - Player 4c2c8845-d6b6-4b9c-a2c5-f1fe062520d2 disconnected.
+2024-11-20 10:33:23,573 - INFO - connection closed
