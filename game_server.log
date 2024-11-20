@@ -230,3 +230,247 @@
 2024-11-20 12:13:55,447 - INFO - Player 08a48531-ad3f-4bcf-b671-9da303299439 connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
 2024-11-20 12:13:56,632 - INFO - connection open
 2024-11-20 12:13:56,632 - INFO - Player 5be0642a-6904-408b-999b-331430e3860b connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:14:55,772 - INFO - Player 08a48531-ad3f-4bcf-b671-9da303299439 disconnected.
+2024-11-20 12:14:55,772 - INFO - connection closed
+2024-11-20 12:14:55,772 - INFO - Player 1dc93b2d-5e4c-4fb5-aa04-beabf6a1c3d8 disconnected.
+2024-11-20 12:14:55,772 - INFO - connection closed
+2024-11-20 12:14:55,772 - INFO - Player 0e94b836-8d4a-4ddc-b73f-a4b74298448b disconnected.
+2024-11-20 12:14:55,772 - INFO - connection closed
+2024-11-20 12:14:55,772 - INFO - Player 5be0642a-6904-408b-999b-331430e3860b disconnected.
+2024-11-20 12:14:55,772 - INFO - connection closed
+2024-11-20 12:16:26,545 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:16:26,545 - INFO - server listening on [::1]:8765
+2024-11-20 12:16:26,545 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:16:29,054 - INFO - connection open
+2024-11-20 12:16:29,054 - INFO - Player f3085063-6e17-4a4b-a20d-567df735307f connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:16:30,275 - INFO - connection open
+2024-11-20 12:16:30,275 - INFO - Player 7dc131ba-9989-4e43-a9f2-1065fbaf24d2 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:16:32,661 - INFO - connection open
+2024-11-20 12:16:32,661 - INFO - Player 8b991cdc-727a-44ff-ac6e-0dc60c971d6c connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:16:33,947 - INFO - connection open
+2024-11-20 12:16:33,947 - INFO - Player 2b3f6503-7083-4907-8358-6d85be8dd315 connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:16:40,478 - INFO - Player f3085063-6e17-4a4b-a20d-567df735307f moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:16:41,676 - INFO - Player f3085063-6e17-4a4b-a20d-567df735307f moved to cafeteria. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:16:42,582 - INFO - Player f3085063-6e17-4a4b-a20d-567df735307f moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:16:43,547 - INFO - Player f3085063-6e17-4a4b-a20d-567df735307f moved to cafeteria. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:16:44,465 - INFO - Player f3085063-6e17-4a4b-a20d-567df735307f moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:17:00,675 - INFO - Player 8b991cdc-727a-44ff-ac6e-0dc60c971d6c moved to medbay. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 2}
+2024-11-20 12:17:01,108 - INFO - Player 8b991cdc-727a-44ff-ac6e-0dc60c971d6c moved to cafeteria. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:17:25,434 - INFO - Player f3085063-6e17-4a4b-a20d-567df735307f disconnected.
+2024-11-20 12:17:25,434 - INFO - connection closed
+2024-11-20 12:17:25,434 - INFO - Player 2b3f6503-7083-4907-8358-6d85be8dd315 disconnected.
+2024-11-20 12:17:25,434 - INFO - connection closed
+2024-11-20 12:17:25,435 - INFO - Player 8b991cdc-727a-44ff-ac6e-0dc60c971d6c disconnected.
+2024-11-20 12:17:25,435 - INFO - connection closed
+2024-11-20 12:17:25,435 - INFO - Player 7dc131ba-9989-4e43-a9f2-1065fbaf24d2 disconnected.
+2024-11-20 12:17:25,435 - INFO - connection closed
+2024-11-20 12:17:34,272 - INFO - server listening on [::1]:8765
+2024-11-20 12:17:34,272 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:17:34,278 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:17:35,904 - INFO - connection open
+2024-11-20 12:17:35,904 - INFO - Player b04ebf54-ea77-4e0e-981a-54de33323df8 connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:17:41,015 - INFO - connection open
+2024-11-20 12:17:41,016 - INFO - Player 201fae7d-bf54-408a-bc94-b8f271fc3069 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:17:43,793 - INFO - connection open
+2024-11-20 12:17:43,794 - INFO - Player da35816c-f59e-4b56-b0dd-c5b0026c3238 connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:17:44,869 - INFO - connection open
+2024-11-20 12:17:44,869 - INFO - Player d7651c10-1639-46ff-bac1-17c3eb8d627a connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:18:43,306 - INFO - Player 201fae7d-bf54-408a-bc94-b8f271fc3069 disconnected.
+2024-11-20 12:18:43,307 - INFO - connection closed
+2024-11-20 12:18:43,308 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 99, in handle_connection
+    del self.player_status[player_id]
+  File "/Users/ohadr/text_among_us/game.py", line 220, in broadcast_message
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:18:43,312 - INFO - connection closed
+2024-11-20 12:18:43,312 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 99, in handle_connection
+    del self.player_status[player_id]
+  File "/Users/ohadr/text_among_us/game.py", line 220, in broadcast_message
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:18:43,313 - INFO - connection closed
+2024-11-20 12:18:43,313 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 99, in handle_connection
+    del self.player_status[player_id]
+  File "/Users/ohadr/text_among_us/game.py", line 220, in broadcast_message
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:18:43,313 - INFO - connection closed
+2024-11-20 12:18:45,956 - INFO - server listening on [::1]:8765
+2024-11-20 12:18:45,956 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:18:45,956 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:18:46,968 - INFO - connection open
+2024-11-20 12:18:46,969 - INFO - Player 565400dd-dffc-4a13-ad89-9ddd0d9b20e5 connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:18:53,930 - INFO - connection open
+2024-11-20 12:18:53,932 - INFO - Player 10af1efd-016d-4c78-b2df-93068ccd4801 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:18:57,495 - INFO - Player 10af1efd-016d-4c78-b2df-93068ccd4801 moved to medbay. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:19:00,974 - INFO - connection open
+2024-11-20 12:19:00,975 - INFO - Player 7781de01-63e3-4320-abd3-0183821f7052 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:19:05,837 - INFO - connection open
+2024-11-20 12:19:05,839 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:19:10,569 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to medbay. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 2}
+2024-11-20 12:19:11,148 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to cafeteria. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:19:11,914 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to upper_engine. Room occupancy: {'cafeteria': 2, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:19:12,718 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 1}
+2024-11-20 12:19:13,896 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to upper_engine. Room occupancy: {'cafeteria': 2, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:19:14,626 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 1}
+2024-11-20 12:19:15,334 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to medbay. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 2}
+2024-11-20 12:19:15,802 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to cafeteria. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:19:18,665 - INFO - Player 10af1efd-016d-4c78-b2df-93068ccd4801 moved to cafeteria. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:20,508 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:20:21,356 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:21,691 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to security. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:22,355 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to electrical. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:22,737 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to lower_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:23,381 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to storage. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 1, 'medbay': 0}
+2024-11-20 12:20:25,461 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to cafeteria. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:26,274 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:20:26,854 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:28,492 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to upper_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:31,550 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:32,457 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:20:33,158 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:33,765 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to security. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:34,791 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to electrical. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:35,413 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to security. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:36,242 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to reactor. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 1, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:48,324 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to upper_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:49,475 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:50,076 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to upper_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:20:50,381 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to cafeteria. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:21:27,842 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:21:28,355 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:21:29,035 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to security. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:21:35,733 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to electrical. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:21:36,443 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to lower_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:21:36,843 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to electrical. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:21:37,164 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to security. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:21:37,714 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}

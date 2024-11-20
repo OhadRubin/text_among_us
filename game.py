@@ -64,6 +64,19 @@ class GameServer:
         self.player_status[player_id] = "alive"
         self.room_occupancy[initial_location] += 1
         
+        # Broadcast new player connection to all existing players
+        await self.broadcast_message({
+            "type": "player_update",
+            "payload": {
+                "event": "connected",
+                "player_id": player_id,
+                "location": initial_location
+            }
+        })
+        
+        # Update state for all players in the initial room
+        await self.update_room_players(initial_location)
+        
         # Assign roles if enough players
         if len(self.players) >= 4:  # Minimum players for role assignment
             self.assign_roles()
@@ -76,11 +89,28 @@ class GameServer:
         except websockets.exceptions.ConnectionClosedError:
             logging.warning(f"Connection closed unexpectedly for player {player_id}.")
         finally:
+            # Broadcast player disconnection before cleanup
+            current_location = self.players[player_id]['location']
+            self.room_occupancy[current_location] -= 1
+            
             if player_id in self.roles:
                 del self.roles[player_id]
             if player_id in self.player_status:
                 del self.player_status[player_id]
             del self.players[player_id]
+            
+            await self.broadcast_message({
+                "type": "player_update",
+                "payload": {
+                    "event": "disconnected",
+                    "player_id": player_id,
+                    "location": current_location
+                }
+            })
+            
+            # Update state for players in the room where disconnection occurred
+            await self.update_room_players(current_location)
+            
             logging.info(f"Player {player_id} disconnected.")
 
     def assign_roles(self):
@@ -122,11 +152,31 @@ class GameServer:
             self.room_occupancy[destination] += 1
             # Update player location
             self.players[player_id]['location'] = destination
-            await self.send_state_update(player_id)
+            
+            # Broadcast movement to all players
+            await self.broadcast_message({
+                "type": "movement",
+                "payload": {
+                    "player_id": player_id,
+                    "from": current_location,
+                    "to": destination
+                }
+            })
+            
+            # Send individual state updates to affected rooms' players
+            await self.update_room_players(current_location)  # Update players in the old room
+            await self.update_room_players(destination)      # Update players in the new room
+            
             logging.info(f"Player {player_id} moved to {destination}. Room occupancy: {self.room_occupancy}")
         else:
             error_msg = "Room is full" if not self.can_enter_room(destination) else "Invalid move"
             await self.send_error(player_id, error_msg)
+
+    async def update_room_players(self, room_name):
+        """Send state updates to all players in a specific room"""
+        for pid, player_data in self.players.items():
+            if player_data['location'] == room_name:
+                await self.send_state_update(pid)
 
     async def handle_kill(self, killer_id, target_id):
         if not self.validate_kill(killer_id, target_id):
@@ -273,6 +323,22 @@ class CliGameClient:
                     self.available_exits = payload.get("available_exits")
                     self.state_data = payload  # Store the complete state data
                     self.display_current_location()
+                elif message_type == "movement":
+                    payload = data.get("payload")
+                    player = payload.get("player_id")
+                    from_room = payload.get("from")
+                    to_room = payload.get("to")
+                    if player != self.player_id:  # Don't show own movements
+                        print(f"\nPlayer {player} moved from {from_room} to {to_room}")
+                        print("> ", end="", flush=True)  # Restore prompt
+                elif message_type == "player_update":
+                    payload = data.get("payload")
+                    player = payload.get("player_id")
+                    event = payload.get("event")
+                    location = payload.get("location")
+                    if player != self.player_id:  # Don't show own connection/disconnection
+                        print(f"\nPlayer {player} {event} in {location}")
+                        print("> ", end="", flush=True)  # Restore prompt
                 elif message_type == "error":
                     payload = data.get("payload")
                     error_message = payload.get("message")
@@ -465,6 +531,20 @@ class GuiGameClient:
                     self.location = payload.get("location")
                     self.available_exits = payload.get("available_exits")
                     self.state_data = payload
+                elif message_type == "movement":
+                    payload = data.get("payload")
+                    player = payload.get("player_id")
+                    from_room = payload.get("from")
+                    to_room = payload.get("to")
+                    if player != self.player_id:  # Don't show own movements
+                        logging.info(f"Player {player} moved from {from_room} to {to_room}")
+                elif message_type == "player_update":
+                    payload = data.get("payload")
+                    player = payload.get("player_id")
+                    event = payload.get("event")
+                    location = payload.get("location")
+                    if player != self.player_id:  # Don't show own connection/disconnection
+                        logging.info(f"Player {player} {event} in {location}")
                 elif message_type == "error":
                     payload = data.get("payload")
                     error_message = payload.get("message")
