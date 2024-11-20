@@ -474,3 +474,1560 @@ websockets.exceptions.ConnectionClosedError: no close frame received or sent
 2024-11-20 12:21:36,843 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to electrical. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
 2024-11-20 12:21:37,164 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to security. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
 2024-11-20 12:21:37,714 - INFO - Player 4c7122c1-0bfd-40ba-a57a-f1bc7a4d5dee moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:23:24,961 - INFO - Player 10af1efd-016d-4c78-b2df-93068ccd4801 disconnected.
+2024-11-20 12:23:24,962 - INFO - connection closed
+2024-11-20 12:23:24,963 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 223, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:23:24,964 - INFO - connection closed
+2024-11-20 12:23:24,965 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 223, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:23:24,965 - INFO - connection closed
+2024-11-20 12:23:24,965 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 223, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:23:24,966 - INFO - connection closed
+2024-11-20 12:23:41,150 - INFO - server listening on [::1]:8765
+2024-11-20 12:23:41,150 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:23:41,150 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:24:42,932 - INFO - connection open
+2024-11-20 12:24:42,933 - INFO - Player 67b5495d-ddad-4e08-9de9-59fc2a5d6c15 connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:24:50,032 - INFO - connection open
+2024-11-20 12:24:50,033 - INFO - Player e3437de2-f908-4c60-b814-2ffa85aa87fb connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:24:59,031 - INFO - connection open
+2024-11-20 12:24:59,032 - INFO - Player 80424226-06f9-44ff-a532-2a3ec694656e connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:25:03,244 - INFO - connection open
+2024-11-20 12:25:03,246 - INFO - Player 57626581-40a2-4274-a791-57b94e3e2991 connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:25:23,234 - INFO - Player e3437de2-f908-4c60-b814-2ffa85aa87fb disconnected.
+2024-11-20 12:25:23,234 - INFO - connection closed
+2024-11-20 12:25:23,235 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 223, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:25:23,236 - INFO - connection closed
+2024-11-20 12:25:23,687 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 223, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:25:23,687 - INFO - connection closed
+2024-11-20 12:25:23,688 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 223, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:25:23,688 - INFO - connection closed
+2024-11-20 12:33:36,157 - INFO - server listening on [::1]:8765
+2024-11-20 12:33:36,157 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:33:36,158 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:33:38,521 - INFO - connection open
+2024-11-20 12:33:38,523 - INFO - Player 6909140f-c409-4967-bb70-601f4900c753 connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:33:45,130 - INFO - connection open
+2024-11-20 12:33:45,130 - INFO - Player 05671507-b88f-43dc-a4de-cee692163cff connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:33:48,640 - INFO - connection open
+2024-11-20 12:33:48,641 - INFO - Player b9c511c9-d279-46cc-98cd-edd71ae8a6ab connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:33:49,643 - INFO - connection open
+2024-11-20 12:33:49,644 - INFO - Player 6b4ece77-3ef8-40bc-aeb7-7ac2e33bdf8b connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:34:05,997 - INFO - Player 6b4ece77-3ef8-40bc-aeb7-7ac2e33bdf8b moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:34:07,650 - INFO - Player 6b4ece77-3ef8-40bc-aeb7-7ac2e33bdf8b moved to cafeteria. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:34:08,423 - INFO - Player 6b4ece77-3ef8-40bc-aeb7-7ac2e33bdf8b moved to storage. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 1, 'medbay': 0}
+2024-11-20 12:34:15,186 - INFO - Player 6b4ece77-3ef8-40bc-aeb7-7ac2e33bdf8b moved to cafeteria. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:34:16,112 - INFO - Player 6b4ece77-3ef8-40bc-aeb7-7ac2e33bdf8b moved to storage. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 1, 'medbay': 0}
+2024-11-20 12:34:27,184 - INFO - Player b9c511c9-d279-46cc-98cd-edd71ae8a6ab moved to medbay. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 1, 'medbay': 1}
+2024-11-20 12:34:36,858 - INFO - Player 6b4ece77-3ef8-40bc-aeb7-7ac2e33bdf8b disconnected.
+2024-11-20 12:34:36,859 - INFO - connection closed
+2024-11-20 12:34:36,860 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 103, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 224, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:34:36,867 - INFO - connection closed
+2024-11-20 12:34:36,867 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 103, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 224, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:34:36,868 - INFO - connection closed
+2024-11-20 12:34:36,868 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 103, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 224, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:34:36,868 - INFO - connection closed
+2024-11-20 12:36:00,944 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:36:00,944 - INFO - server listening on [::1]:8765
+2024-11-20 12:36:00,944 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:36:01,928 - INFO - connection open
+2024-11-20 12:36:01,929 - INFO - Player c57efc00-27d9-4f24-858d-067ed40721ee connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:36:01,968 - INFO - connection open
+2024-11-20 12:36:01,968 - INFO - Player c90e90e6-8bec-4f1b-9242-f093469b7c46 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:36:01,987 - INFO - connection open
+2024-11-20 12:36:01,987 - INFO - Player 10b7a5ae-d5a0-40d2-a887-e10cbdaf03fa connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:36:01,992 - INFO - connection open
+2024-11-20 12:36:01,993 - INFO - Player 076ff216-ace2-46e0-b1fd-65c30417ece2 connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:36:33,561 - INFO - Player 076ff216-ace2-46e0-b1fd-65c30417ece2 disconnected.
+2024-11-20 12:36:33,562 - INFO - connection closed
+2024-11-20 12:36:33,563 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 103, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 224, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:36:33,567 - INFO - connection closed
+2024-11-20 12:36:33,567 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 103, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 224, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:36:33,568 - INFO - connection closed
+2024-11-20 12:36:33,568 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 103, in handle_connection
+    await self.broadcast_message({
+  File "/Users/ohadr/text_among_us/game.py", line 224, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:36:33,568 - INFO - connection closed
+2024-11-20 12:37:15,474 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:37:15,474 - INFO - server listening on [::1]:8765
+2024-11-20 12:37:15,474 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:37:20,148 - INFO - connection open
+2024-11-20 12:37:20,149 - INFO - Player e10adcc1-1b19-442a-aa42-b40759b9565e connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:37:20,159 - INFO - connection open
+2024-11-20 12:37:20,159 - INFO - Player 7d91a547-c5f4-4e1a-8429-e581c334f0eb connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:37:20,262 - INFO - connection open
+2024-11-20 12:37:20,263 - INFO - Player 174b26b4-0b64-4654-a9e7-4662d06f6cf9 connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:37:20,270 - INFO - connection open
+2024-11-20 12:37:20,270 - INFO - Player 4d7960aa-329c-4f3a-96c3-85794847f1ac connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:37:22,185 - INFO - Player 7d91a547-c5f4-4e1a-8429-e581c334f0eb moved to storage. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 1, 'medbay': 0}
+2024-11-20 12:37:40,405 - INFO - Player 7d91a547-c5f4-4e1a-8429-e581c334f0eb moved to lower_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:37:42,390 - INFO - Player 7d91a547-c5f4-4e1a-8429-e581c334f0eb moved to storage. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 1, 'medbay': 0}
+2024-11-20 12:37:53,312 - INFO - Player 174b26b4-0b64-4654-a9e7-4662d06f6cf9 moved to storage. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 2, 'medbay': 0}
+2024-11-20 12:37:57,950 - INFO - Player 174b26b4-0b64-4654-a9e7-4662d06f6cf9 moved to cafeteria. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 1, 'medbay': 0}
+2024-11-20 12:37:58,949 - INFO - Player 174b26b4-0b64-4654-a9e7-4662d06f6cf9 moved to storage. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 2, 'medbay': 0}
+2024-11-20 12:38:07,673 - INFO - Player e10adcc1-1b19-442a-aa42-b40759b9565e moved to medbay. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 2, 'medbay': 1}
+2024-11-20 12:38:09,212 - INFO - Player e10adcc1-1b19-442a-aa42-b40759b9565e moved to cafeteria. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 2, 'medbay': 0}
+2024-11-20 12:38:10,983 - INFO - Player e10adcc1-1b19-442a-aa42-b40759b9565e moved to medbay. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 2, 'medbay': 1}
+2024-11-20 12:38:11,877 - INFO - Player e10adcc1-1b19-442a-aa42-b40759b9565e moved to cafeteria. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 2, 'medbay': 0}
+2024-11-20 12:38:12,598 - INFO - Player e10adcc1-1b19-442a-aa42-b40759b9565e moved to medbay. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 2, 'medbay': 1}
+2024-11-20 12:38:15,534 - INFO - Player e10adcc1-1b19-442a-aa42-b40759b9565e moved to cafeteria. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 2, 'medbay': 0}
+2024-11-20 12:38:16,289 - INFO - Player e10adcc1-1b19-442a-aa42-b40759b9565e moved to medbay. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 2, 'medbay': 1}
+2024-11-20 12:40:19,366 - INFO - Player 4d7960aa-329c-4f3a-96c3-85794847f1ac disconnected.
+2024-11-20 12:40:19,366 - INFO - connection closed
+2024-11-20 12:40:19,367 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 103, in handle_connection
+    "type": "player_update",
+  File "/Users/ohadr/text_among_us/game.py", line 224, in broadcast_message
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:40:19,371 - INFO - connection closed
+2024-11-20 12:40:19,371 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 103, in handle_connection
+    "type": "player_update",
+  File "/Users/ohadr/text_among_us/game.py", line 224, in broadcast_message
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:40:19,372 - INFO - connection closed
+2024-11-20 12:40:19,372 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 103, in handle_connection
+    "type": "player_update",
+  File "/Users/ohadr/text_among_us/game.py", line 224, in broadcast_message
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:40:19,372 - INFO - connection closed
+2024-11-20 12:43:34,330 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:43:34,330 - INFO - server listening on [::1]:8765
+2024-11-20 12:43:34,330 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:43:37,014 - INFO - connection open
+2024-11-20 12:43:37,014 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:37,014 - INFO - connection open
+2024-11-20 12:43:37,014 - INFO - Player 75f54973-ce06-40e8-8550-1e302d57e479 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:37,033 - INFO - connection open
+2024-11-20 12:43:37,034 - INFO - Player 8ddc7df5-b317-4656-8c94-2d9dd95f5e6f connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:37,036 - INFO - connection open
+2024-11-20 12:43:37,037 - INFO - Player 8fa1e3d3-9449-4e8d-81e0-037084c89646 connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:45,792 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:43:46,420 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:46,971 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to lower_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:47,427 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:47,911 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to lower_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:48,339 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to storage. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 1, 'medbay': 0}
+2024-11-20 12:43:48,701 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to lower_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:49,063 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:49,411 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to security. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:50,100 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to reactor. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 1, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:50,708 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to security. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:51,660 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to electrical. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 1, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:52,280 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to lower_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:53,516 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to storage. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 1, 'medbay': 0}
+2024-11-20 12:43:54,346 - INFO - Player 0d207605-c40a-44f4-a0cd-f98422ec89d9 moved to cafeteria. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:43:59,555 - INFO - Player 8ddc7df5-b317-4656-8c94-2d9dd95f5e6f moved to medbay. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 12:43:59,940 - INFO - Player 8ddc7df5-b317-4656-8c94-2d9dd95f5e6f moved to engine_room. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 1, 'storage': 0, 'medbay': 0}
+2024-11-20 12:44:00,305 - INFO - Player 8ddc7df5-b317-4656-8c94-2d9dd95f5e6f moved to lower_engine. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 1, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:47:07,091 - INFO - Player 8fa1e3d3-9449-4e8d-81e0-037084c89646 disconnected.
+2024-11-20 12:47:07,092 - INFO - connection closed
+2024-11-20 12:47:07,093 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:47:07,097 - INFO - connection closed
+2024-11-20 12:47:07,097 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:47:07,098 - INFO - connection closed
+2024-11-20 12:47:07,098 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:47:07,098 - INFO - connection closed
+2024-11-20 12:47:09,370 - INFO - server listening on [::1]:8765
+2024-11-20 12:47:09,370 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:47:09,370 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:47:11,409 - INFO - connection open
+2024-11-20 12:47:11,410 - INFO - Player f0a352b9-6a43-4ff7-a7cf-5621a3d2a18b connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:47:11,411 - INFO - connection open
+2024-11-20 12:47:11,411 - INFO - Player 0d9f387d-43b1-4d2a-8f2e-bd5192f3f1d0 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:47:11,417 - INFO - connection open
+2024-11-20 12:47:11,417 - INFO - Player 09911b2f-e28d-494d-9d7b-68cabe34dc6d connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:47:11,442 - INFO - connection open
+2024-11-20 12:47:11,442 - INFO - Player 93340d44-4e8d-4e47-9898-66b6fd4747ec connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:49:46,395 - INFO - Player 93340d44-4e8d-4e47-9898-66b6fd4747ec disconnected.
+2024-11-20 12:49:46,395 - INFO - connection closed
+2024-11-20 12:49:46,396 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:49:46,401 - INFO - connection closed
+2024-11-20 12:49:46,401 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:49:46,401 - INFO - connection closed
+2024-11-20 12:49:46,401 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:49:46,401 - INFO - connection closed
+2024-11-20 12:50:01,176 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:50:01,177 - INFO - server listening on [::1]:8765
+2024-11-20 12:50:01,177 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:50:04,544 - INFO - connection open
+2024-11-20 12:50:04,545 - INFO - Player 99a54d2d-a9ab-4eb5-8ba8-187c964a6eab connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:50:04,582 - INFO - connection open
+2024-11-20 12:50:04,583 - INFO - Player 0f479d77-f4ad-4cb4-92e6-321aaafb3823 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:50:04,584 - INFO - connection open
+2024-11-20 12:50:04,584 - INFO - Player 71a19632-3456-4db0-b390-37442176c795 connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:50:04,585 - INFO - connection open
+2024-11-20 12:50:04,585 - INFO - Player e6508d21-6afe-4252-b6b5-cd3554552bcb connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:50:56,317 - INFO - Player 71a19632-3456-4db0-b390-37442176c795 disconnected.
+2024-11-20 12:50:56,318 - INFO - connection closed
+2024-11-20 12:50:56,318 - INFO - Player 99a54d2d-a9ab-4eb5-8ba8-187c964a6eab disconnected.
+2024-11-20 12:50:56,318 - INFO - connection closed
+2024-11-20 12:50:56,352 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:50:56,358 - INFO - connection closed
+2024-11-20 12:50:56,358 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:50:56,359 - INFO - connection closed
+2024-11-20 12:50:59,080 - INFO - server listening on [::1]:8765
+2024-11-20 12:50:59,080 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:50:59,080 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:51:01,438 - INFO - connection open
+2024-11-20 12:51:01,438 - INFO - Player d4a720d2-5892-4d56-8d5f-280516fd0bcd connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:51:01,440 - INFO - connection open
+2024-11-20 12:51:01,440 - INFO - Player 14409fbf-02ec-4301-b951-d3e902a75b65 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:51:01,479 - INFO - connection open
+2024-11-20 12:51:01,479 - INFO - Player 2504b6e9-5a96-468d-af65-467346c13c3f connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:51:01,480 - INFO - connection open
+2024-11-20 12:51:01,480 - INFO - Player 436dcedb-41fe-4220-93b2-101a080a5280 connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:51:13,021 - INFO - Player 436dcedb-41fe-4220-93b2-101a080a5280 disconnected.
+2024-11-20 12:51:13,021 - INFO - connection closed
+2024-11-20 12:51:13,022 - INFO - Player d4a720d2-5892-4d56-8d5f-280516fd0bcd disconnected.
+2024-11-20 12:51:13,022 - INFO - connection closed
+2024-11-20 12:51:13,023 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:51:13,025 - INFO - connection closed
+2024-11-20 12:51:13,025 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:51:13,026 - INFO - connection closed
+2024-11-20 12:51:14,652 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 12:51:14,652 - INFO - server listening on [::1]:8765
+2024-11-20 12:51:14,652 - INFO - Server started on ws://localhost:8765
+2024-11-20 12:51:17,776 - INFO - connection open
+2024-11-20 12:51:17,777 - INFO - Player 4733306c-eccf-4496-8a6b-47d3df3a477b connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:51:17,819 - INFO - connection open
+2024-11-20 12:51:17,819 - INFO - Player f771cc2f-df00-473c-bef1-cc6dce5eb9f1 connected. Room occupancy: {'cafeteria': 2, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:51:17,841 - INFO - connection open
+2024-11-20 12:51:17,842 - INFO - Player f38ace70-be31-4ebb-adba-764b5131f363 connected. Room occupancy: {'cafeteria': 3, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:51:17,860 - INFO - connection open
+2024-11-20 12:51:17,860 - INFO - Player fc0a6b38-c0e2-483a-bee4-060965c3d4ce connected. Room occupancy: {'cafeteria': 4, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 12:52:42,376 - INFO - Player fc0a6b38-c0e2-483a-bee4-060965c3d4ce disconnected.
+2024-11-20 12:52:42,377 - INFO - connection closed
+2024-11-20 12:52:42,378 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:52:42,381 - INFO - connection closed
+2024-11-20 12:52:42,381 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:52:42,381 - INFO - connection closed
+2024-11-20 12:52:42,381 - ERROR - connection handler failed
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/selectors.py", line 562, in select
+    kev_list = self._selector.control(None, max_ev, timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 963, in transfer_data
+    message = await self.read_message()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1033, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1108, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 1165, in read_frame
+    frame = await Frame.read(
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/framing.py", line 68, in read
+    data = await reader(2)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 707, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/asyncio/streams.py", line 501, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 236, in handler
+    await self.ws_handler(self)
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/server.py", line 1175, in _ws_handler
+    return await cast(
+  File "/Users/ohadr/text_among_us/game.py", line 102, in handle_connection
+    await self.broadcast_message(
+  File "/Users/ohadr/text_among_us/game.py", line 243, in broadcast_message
+    await player["websocket"].send(json.dumps(message))
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 635, in send
+    await self.ensure_open()
+  File "/Users/ohadr/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 934, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+2024-11-20 12:52:42,382 - INFO - connection closed
