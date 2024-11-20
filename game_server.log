@@ -26,3 +26,77 @@
 2024-11-20 10:33:21,506 - INFO - Player 4c2c8845-d6b6-4b9c-a2c5-f1fe062520d2 connected.
 2024-11-20 10:33:23,573 - INFO - Player 4c2c8845-d6b6-4b9c-a2c5-f1fe062520d2 disconnected.
 2024-11-20 10:33:23,573 - INFO - connection closed
+2024-11-20 10:39:43,090 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 10:39:43,090 - INFO - server listening on [::1]:8765
+2024-11-20 10:39:43,090 - INFO - Server started on ws://localhost:8765
+2024-11-20 10:39:44,955 - INFO - connection open
+2024-11-20 10:39:44,955 - INFO - Player 3261f0a4-ecd0-4c27-b20c-70a43a2034b2 connected.
+2024-11-20 10:39:46,058 - INFO - Player 3261f0a4-ecd0-4c27-b20c-70a43a2034b2 disconnected.
+2024-11-20 10:39:46,058 - INFO - connection closed
+2024-11-20 10:39:52,568 - INFO - connection open
+2024-11-20 10:39:52,568 - INFO - Player c382e9dd-a413-4d47-b141-c6c1c80eef87 connected.
+2024-11-20 10:39:54,388 - INFO - Player c382e9dd-a413-4d47-b141-c6c1c80eef87 disconnected.
+2024-11-20 10:39:54,388 - INFO - connection closed
+2024-11-20 10:40:17,237 - INFO - connection open
+2024-11-20 10:40:17,237 - INFO - Player 2756253a-b175-4224-9d24-627909cdd858 connected.
+2024-11-20 10:40:17,976 - INFO - Player 2756253a-b175-4224-9d24-627909cdd858 disconnected.
+2024-11-20 10:40:17,976 - INFO - connection closed
+2024-11-20 10:40:38,989 - INFO - connection open
+2024-11-20 10:40:38,989 - INFO - Player 5c4b0134-42c3-4dfc-86de-e5ff06dd6808 connected.
+2024-11-20 10:40:40,486 - INFO - Player 5c4b0134-42c3-4dfc-86de-e5ff06dd6808 disconnected.
+2024-11-20 10:40:40,486 - INFO - connection closed
+2024-11-20 10:41:09,150 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 10:41:09,150 - INFO - server listening on [::1]:8765
+2024-11-20 10:41:09,150 - INFO - Server started on ws://localhost:8765
+2024-11-20 10:41:10,500 - INFO - connection open
+2024-11-20 10:41:10,500 - INFO - Player 8becf9c3-37c5-41f8-8aa8-b00082754abd connected.
+2024-11-20 10:41:14,329 - INFO - Player 8becf9c3-37c5-41f8-8aa8-b00082754abd disconnected.
+2024-11-20 10:41:14,330 - INFO - connection closed
+2024-11-20 10:41:33,519 - INFO - connection open
+2024-11-20 10:41:33,519 - INFO - Player 81beab64-b458-41a0-80ed-20ff5b79ad69 connected.
+2024-11-20 10:41:34,220 - INFO - Player 81beab64-b458-41a0-80ed-20ff5b79ad69 disconnected.
+2024-11-20 10:41:34,220 - INFO - connection closed
+2024-11-20 10:42:47,533 - INFO - server listening on [::1]:8765
+2024-11-20 10:42:47,533 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 10:42:47,533 - INFO - Server started on ws://localhost:8765
+2024-11-20 10:42:48,571 - INFO - connection open
+2024-11-20 10:42:48,571 - INFO - Player 4e89ebb9-11d2-45d1-ba62-d961e20303e8 connected.
+2024-11-20 10:42:50,595 - INFO - Player 4e89ebb9-11d2-45d1-ba62-d961e20303e8 disconnected.
+2024-11-20 10:42:50,595 - INFO - connection closed
+2024-11-20 10:43:43,095 - INFO - connection open
+2024-11-20 10:43:43,095 - INFO - Player 00a3c8b5-71df-42ce-b81b-045b58d75765 connected.
+2024-11-20 10:43:43,994 - INFO - Player 00a3c8b5-71df-42ce-b81b-045b58d75765 disconnected.
+2024-11-20 10:43:43,994 - INFO - connection closed
+2024-11-20 10:45:59,714 - INFO - connection open
+2024-11-20 10:45:59,714 - INFO - Player 8aab4194-f4f2-4723-b1f6-88b31dda07a8 connected.
+2024-11-20 10:46:00,776 - INFO - Player 8aab4194-f4f2-4723-b1f6-88b31dda07a8 disconnected.
+2024-11-20 10:46:00,776 - INFO - connection closed
+2024-11-20 10:46:48,581 - INFO - connection open
+2024-11-20 10:46:48,581 - INFO - Player 2b0a0533-17df-4d58-8d5e-bdc33c1b52c0 connected.
+2024-11-20 10:46:50,984 - INFO - Player 2b0a0533-17df-4d58-8d5e-bdc33c1b52c0 disconnected.
+2024-11-20 10:46:50,984 - INFO - connection closed
+2024-11-20 10:47:14,678 - INFO - connection open
+2024-11-20 10:47:14,678 - INFO - Player 89e24e64-2c30-4b6d-a75c-da8331aa6169 connected.
+2024-11-20 10:47:15,247 - INFO - Player 89e24e64-2c30-4b6d-a75c-da8331aa6169 disconnected.
+2024-11-20 10:47:15,247 - INFO - connection closed
+2024-11-20 10:57:05,524 - INFO - server listening on [::1]:8765
+2024-11-20 10:57:05,524 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 10:57:05,524 - INFO - Server started on ws://localhost:8765
+2024-11-20 10:57:07,903 - INFO - connection open
+2024-11-20 10:57:07,903 - INFO - Player c7c5cc20-7fa3-44c3-b025-8f71099a5807 connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 10:57:12,678 - INFO - Player c7c5cc20-7fa3-44c3-b025-8f71099a5807 moved to medbay. Room occupancy: {'cafeteria': 0, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 1}
+2024-11-20 10:59:25,149 - INFO - Player c7c5cc20-7fa3-44c3-b025-8f71099a5807 disconnected.
+2024-11-20 10:59:25,149 - INFO - connection closed
+2024-11-20 10:59:29,834 - INFO - server listening on 127.0.0.1:8765
+2024-11-20 10:59:29,835 - INFO - server listening on [::1]:8765
+2024-11-20 10:59:29,835 - INFO - Server started on ws://localhost:8765
+2024-11-20 10:59:31,082 - INFO - connection open
+2024-11-20 10:59:31,082 - INFO - Player 5b16067a-5c4d-4eec-8d96-596794d0c65f connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 0, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 10:59:37,328 - INFO - Player 5b16067a-5c4d-4eec-8d96-596794d0c65f moved to upper_engine. Room occupancy: {'cafeteria': 0, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 11:00:07,565 - INFO - connection open
+2024-11-20 11:00:07,566 - INFO - Player 67185747-a6ca-41e6-af8f-83618af336f5 connected. Room occupancy: {'cafeteria': 1, 'upper_engine': 1, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 11:00:16,980 - INFO - Player 67185747-a6ca-41e6-af8f-83618af336f5 moved to upper_engine. Room occupancy: {'cafeteria': 0, 'upper_engine': 2, 'reactor': 0, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 11:00:21,861 - INFO - Player 67185747-a6ca-41e6-af8f-83618af336f5 moved to reactor. Room occupancy: {'cafeteria': 0, 'upper_engine': 1, 'reactor': 1, 'security': 0, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 11:01:27,554 - INFO - Player 67185747-a6ca-41e6-af8f-83618af336f5 moved to security. Room occupancy: {'cafeteria': 0, 'upper_engine': 1, 'reactor': 0, 'security': 1, 'electrical': 0, 'lower_engine': 0, 'engine_room': 0, 'storage': 0, 'medbay': 0}
+2024-11-20 11:49:44,979 - INFO - Player 67185747-a6ca-41e6-af8f-83618af336f5 disconnected.
+2024-11-20 11:49:44,979 - INFO - connection closed

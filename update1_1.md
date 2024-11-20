@@ -1,110 +1,189 @@
-# Version 1.0 Specification: Basic Client-Server Communication and Movement
+# Version 1.1 Specification: Enhanced Map and Room Management
 
 ## Overview
 
-This document outlines the specifications for **Version 1.0** of a text-based **Among Us** game. The focus is on establishing the core networking infrastructure and enabling basic player movement within a simplified map. This foundational version sets the stage for future updates that will introduce more complex game mechanics.
+This document details the specifications for **Version 1.1** of the text-based **Among Us** game. Building upon the foundational client-server architecture and basic movement mechanics established in Version 1.0, this update focuses on enhancing the map visualization, implementing room capacity limits, and improving the command system for a more engaging player experience.
 
 ## Objectives
 
-- **Establish Client-Server Architecture**: Implement a robust asynchronous WebSocket server to handle multiple client connections.
-- **Enable Basic Movement**: Allow players to move between rooms in a simplified map structure.
-- **Implement Basic Commands**: Provide a command-line interface for players to interact with the game.
+- **Enhanced Map Visualization**: Provide players with an ASCII map representation of the game world.
+- **Implement Room Capacity System**: Introduce limits on the number of players per room to encourage strategic movement.
+- **Improve Command System**: Expand the `look` command and introduce a new `map` command for better in-game navigation.
+- **Enhanced Error Handling**: Offer detailed feedback to players regarding movement and room capacities.
 
 ---
 
 ## Server Components
 
-### 1. WebSocket Server Setup
+### 1. Enhanced Map Implementation
 
-- **Libraries**: Use `asyncio` and `websockets` to create the server.
-  - `asyncio`: For handling asynchronous operations.
-  - `websockets`: For WebSocket protocol implementation.
-- **Server Initialization**: Maintain a dictionary of connected players and initialize the game map.
+#### Map Structure
+
+- **Fixed Map Layout**: Maintain a consistent map layout with predefined rooms and connections.
+- **Room Connections**: Represented as a graph where nodes are rooms, and edges are valid paths between them.
 
 ```python
-import asyncio
-import websockets
-
-class GameServer:
-    def __init__(self):
-        self.players = {}
-        self.map_structure = self.initialize_map()
-
-    async def start_server(self):
-        server = await websockets.serve(self.handle_connection, 'localhost', 8765)
-        await server.wait_closed()
+def initialize_map(self):
+    return {
+        'cafeteria': ['upper_engine', 'medbay', 'storage'],
+        'upper_engine': ['cafeteria', 'reactor', 'engine_room'],
+        'reactor': ['upper_engine', 'security'],
+        'security': ['reactor', 'engine_room', 'electrical'],
+        'electrical': ['security', 'lower_engine'],
+        'lower_engine': ['electrical', 'engine_room', 'storage'],
+        'engine_room': ['upper_engine', 'security', 'lower_engine', 'medbay'],
+        'storage': ['cafeteria', 'lower_engine'],
+        'medbay': ['cafeteria', 'engine_room']
+    }
 ```
 
-### 2. Player Session Management
+### 2. Room Capacity System
 
-- **Assign Unique Player IDs**: Use UUIDs to uniquely identify players.
+#### Room Capacity Limits
+
+- **Standard Rooms**: Maximum of **5 players** per room.
+- **Cafeteria**: Can hold up to **10 players** (server maximum).
+
+#### Room Capacity Management
+
+- **Room Occupancy Tracking**: Keep count of the number of players in each room.
   
   ```python
-  import uuid
-
-  def generate_unique_id(self):
-      return str(uuid.uuid4())
-  ```
-  
-- **Handle Connections**: Add players to the `self.players` dictionary upon connection.
-
-  ```python
-  async def handle_connection(self, websocket, path):
-      player_id = self.generate_unique_id()
-      self.players[player_id] = {
-          'websocket': websocket,
-          'location': 'cafeteria'
-      }
-      await self.handle_player_messages(websocket, player_id)
+  self.room_occupancy = {room_name: 0 for room_name in self.map_structure.keys()}
   ```
 
-### 3. Map Implementation
-
-- **Simplified Map Structure**: Represent the map as a graph (dictionary) of rooms and their connections.
+- **Capacity Check Before Movement**:
 
   ```python
-  def initialize_map(self):
-      return {
-          'cafeteria': ['upper_engine', 'medbay'],
-          'upper_engine': ['cafeteria', 'reactor'],
-          'medbay': ['cafeteria'],
-          'reactor': ['upper_engine']
-      }
+  def can_enter_room(self, room_name):
+      capacity = 10 if room_name == 'cafeteria' else 5
+      return self.room_occupancy[room_name] < capacity
   ```
 
-### 4. Movement Handling
+#### Movement Handling with Capacity Limits
 
-- **Process Movement Commands**: Receive and interpret movement commands from clients.
-
-  ```python
-  async def process_message(self, message, player_id):
-      data = json.loads(message)
-      if data['type'] == 'action' and data['payload']['action'] == 'move':
-          await self.handle_move(player_id, data['payload']['destination'])
-  ```
-  
-- **Validate and Update Movement**: Check if the move is valid and update the player's location.
+- **Validate Move with Capacity**:
 
   ```python
-  def validate_move(self, current_location, destination):
-      return destination in self.map_structure.get(current_location, [])
-
   async def handle_move(self, player_id, destination):
       current_location = self.players[player_id]['location']
-      if self.validate_move(current_location, destination):
+      if self.validate_move(current_location, destination) and self.can_enter_room(destination):
+          # Update room occupancy
+          self.room_occupancy[current_location] -= 1
+          self.room_occupancy[destination] += 1
+          # Update player location
           self.players[player_id]['location'] = destination
           await self.send_state_update(player_id)
+          logging.info(f"Player {player_id} moved to {destination}.")
       else:
-          await self.send_error(player_id, "Invalid move.")
+          await self.send_error(player_id, "Cannot move to that room. It may be full or inaccessible.")
+  ```
+
+### 3. Enhanced Error Handling
+
+- **Detailed Error Messages**: Provide specific reasons for movement failures.
+
+  ```python
+  async def send_error(self, player_id, message):
+      error_message = {
+          "type": "error",
+          "payload": {
+              "message": message
+          },
+          "player_id": player_id
+      }
+      await self.players[player_id]['websocket'].send(json.dumps(error_message))
+  ```
+
+- **Logging Room States**: Log room occupancy for monitoring.
+
+  ```python
+  logging.info(f"Room occupancy updated: {self.room_occupancy}")
   ```
 
 ---
 
 ## Client Components
 
-### 1. Command-Line Interface (CLI)
+### 1. Enhanced Command-Line Interface
 
-- **User Input Parsing**: Accept and parse commands from the player.
+#### New Command: `map`
+
+- **Purpose**: Display an ASCII representation of the map, showing room connections and highlighting the player's current location.
+
+- **Implementation**:
+
+  ```python
+  def display_map(self, current_location):
+      map_template = """
+      [Cafeteria]---[Upper Engine]---[Reactor]
+           |              |             |
+      [MedBay]---[Engine Room]---[Security]
+           |              |             |
+      [Storage]---[Lower Engine]---[Electrical]
+      """
+      highlighted_map = map_template.replace(
+          f'[{current_location}]',
+          f'[*{current_location}*]'
+      )
+      print(highlighted_map)
+  ```
+
+- **Usage**:
+
+  ```
+  > map
+  [*Cafeteria*]---[Upper Engine]---[Reactor]
+       |              |             |
+  [MedBay]---[Engine Room]---[Security]
+       |              |             |
+  [Storage]---[Lower Engine]---[Electrical]
+  ```
+
+#### Enhanced `look` Command
+
+- **Additional Information**: Display room occupancy and indicate if adjacent rooms are full.
+
+- **Implementation**:
+
+  ```python
+  def display_current_location(self, location, players_in_room, available_exits):
+      print(f"Current Location: {location}")
+      print(f"Players here: {players_in_room}/" +
+            ("10" if location == "cafeteria" else "5"))
+      print("Available Exits:")
+      for exit in available_exits:
+          status = "FULL" if not self.server_can_enter_room(exit) else ""
+          print(f"  - {exit} {status}")
+  ```
+
+- **Usage**:
+
+  ```
+  > look
+  Current Location: Cafeteria
+  Players here: 3/10
+  Available Exits:
+    - Upper Engine
+    - MedBay
+    - Storage
+  ```
+
+  If a room is full:
+
+  ```
+  > look
+  Current Location: Cafeteria
+  Players here: 10/10
+  Available Exits:
+    - Upper Engine (FULL)
+    - MedBay
+    - Storage
+  ```
+
+### 2. Command Enhancements
+
+- **Improved Command Parsing**: Handle new commands and options.
 
   ```python
   def parse_command(input_line):
@@ -112,90 +191,57 @@ class GameServer:
       command = tokens[0]
       args = tokens[1:]
       return command, args
-  ```
 
-- **Supported Commands**:
-  - `move <destination>`: Move to an adjacent room.
-  - `look`: Display the current location and available exits.
-  - `help`: Show available commands.
-
-- **Command Loop Example**:
-
-  ```python
-  while True:
-      input_line = input("> ")
-      command, args = parse_command(input_line)
-      if command == "move":
-          destination = args[0]
-          await send_move_command(destination)
-      elif command == "look":
-          display_current_location()
-      elif command == "help":
-          display_help()
-  ```
-
-### 2. HUD Display
-
-- **Display Current Location and Exits**:
-
-  ```python
-  def display_current_location(location, available_exits):
-      print(f"Current Location: {location}")
-      print("Available Exits:")
-      for exit in available_exits:
-          print(f"  - {exit}")
-  ```
-
-- **Example Display**:
-
-  ```
-  Current Location: Cafeteria
-  Available Exits:
-    - Upper Engine
-    - MedBay
+  # Update command loop
+  if command == "map":
+      display_map(current_location)
+  elif command == "look":
+      display_current_location(location, players_in_room, available_exits)
   ```
 
 ---
 
 ## Communication Protocol
 
-### 1. Message Types
+### 1. New Message Types
 
-- **Action Messages (Client-to-Server)**: Used to send player actions.
+#### Error Messages (Server-to-Client)
+
+- **Purpose**: Inform the client about errors such as full rooms or invalid commands.
+
+- **Format**:
 
   ```json
   {
-    "type": "action",
+    "type": "error",
     "payload": {
-      "action": "move",
-      "destination": "upper_engine"
+      "message": "Cannot move to that room. It may be full or inaccessible."
     },
     "player_id": "player_1"
   }
   ```
 
-- **State Messages (Server-to-Client)**: Used to update the client on the game state.
+### 2. Updated State Messages
+
+- **Include Room Occupancy**: Provide information about the number of players in the current room.
+
+- **Format**:
 
   ```json
   {
     "type": "state",
     "payload": {
-      "location": "upper_engine",
-      "available_exits": ["cafeteria", "reactor"]
+      "location": "cafeteria",
+      "players_in_room": 3,
+      "available_exits": ["upper_engine", "medbay", "storage"],
+      "room_capacity": 10,
+      "exits_status": {
+        "upper_engine": "available",
+        "medbay": "full",
+        "storage": "available"
+      }
     },
     "player_id": "player_1"
-  }
-  ```
-
-### 2. Message Format
-
-- **Structure**:
-
-  ```json
-  {
-    "type": "action" | "state",
-    "payload": { /* message-specific data */ },
-    "player_id": "<unique_player_id>"
   }
   ```
 
@@ -203,14 +249,32 @@ class GameServer:
 
 ## Game Flow
 
-### Movement Sequence
+### Movement with Capacity Limits
 
-1. **Player Inputs Command**: The player types `move upper_engine`.
-2. **Client Sends Action Message**: The command is sent to the server.
-3. **Server Validates Move**: Checks if `upper_engine` is adjacent to `cafeteria`.
-4. **Server Updates Location**: Player's location is updated if valid.
-5. **Server Sends State Update**: New location and available exits are sent back.
-6. **Client Updates HUD**: The client displays the updated location and exits.
+1. **Player Inputs Movement Command**:
+
+   - E.g., `move upper_engine`
+
+2. **Client Sends Action Message**:
+
+   - The client sends a move request to the server.
+
+3. **Server Validates Move and Capacity**:
+
+   - Checks if `upper_engine` is adjacent and not at capacity.
+
+4. **Server Updates Location or Sends Error**:
+
+   - If successful, updates player's location and room occupancy.
+   - If the room is full, sends an error message.
+
+5. **Server Sends Updated State**:
+
+   - Includes current location, players in room, and exits status.
+
+6. **Client Updates HUD**:
+
+   - Reflects the new state or displays an error message.
 
 ---
 
@@ -222,128 +286,234 @@ class GameServer:
 
 ### 2. Dependencies
 
-- **`requirements.txt`**:
+- **Updated `requirements.txt`**:
 
   ```
   asyncio>=3.4.3
   websockets>=10.0
-  ```
-
-- **Installation**:
-
-  ```bash
-  pip install -r requirements.txt
+  pytest>=6.0.0
   ```
 
 ### 3. Testing
 
-- **Unit Tests**: Implement tests for movement validation and player connections.
+#### Room Capacity Tests
+
+- **Test Movement to Full Room**:
 
   ```python
-  def test_validate_move():
+  def test_movement_to_full_room():
       game_server = GameServer()
-      assert game_server.validate_move('cafeteria', 'upper_engine') == True
-      assert game_server.validate_move('upper_engine', 'medbay') == False
+      game_server.room_occupancy['upper_engine'] = 5  # Room is full
+      can_enter = game_server.can_enter_room('upper_engine')
+      assert can_enter == False
   ```
 
-- **Testing Framework**: Use `pytest`.
+- **Test Room Occupancy Updates**:
 
-  ```bash
-  pytest tests/
+  ```python
+  def test_room_occupancy_updates():
+      game_server = GameServer()
+      player_id = 'test_player'
+      game_server.players[player_id] = {'location': 'cafeteria'}
+      game_server.room_occupancy['cafeteria'] = 1
+      asyncio.run(game_server.handle_move(player_id, 'upper_engine'))
+      assert game_server.room_occupancy['cafeteria'] == 0
+      assert game_server.room_occupancy['upper_engine'] == 1
   ```
 
 ### 4. Logging
 
-- **Setup Logging**:
+- **Log Room Occupancy Changes**:
 
   ```python
-  import logging
-
-  logging.basicConfig(
-      level=logging.INFO,
-      format='%(asctime)s - %(levelname)s - %(message)s',
-      handlers=[
-          logging.FileHandler('game_server.log'),
-          logging.StreamHandler()
-      ]
-  )
-  ```
-
-- **Usage**:
-
-  ```python
-  logging.info(f"Player {player_id} connected.")
-  logging.info(f"Player {player_id} moved to {destination}.")
+  logging.info(f"Player {player_id} moved to {destination}. Room occupancy: {self.room_occupancy}")
   ```
 
 ---
 
 ## Implementation Tips
 
-- **Start Simple**: Begin with a minimal map for testing.
+### 1. Update Data Structures
+
+- **Room Occupancy Dictionary**: Initialize and maintain a dictionary to track the number of players in each room.
 
   ```python
-  def initialize_map(self):
-      return {
-          'cafeteria': ['upper_engine', 'medbay'],
-          'upper_engine': ['cafeteria'],
-          'medbay': ['cafeteria']
-      }
+  self.room_occupancy = {room_name: 0 for room_name in self.map_structure}
   ```
 
-- **Error Handling**: Implement robust exception handling for WebSocket connections.
+### 2. Modify Movement Functions
+
+- **Adjust `handle_move` Function**: Incorporate capacity checks and occupancy updates.
+
+- **Ensure Atomicity**: Prevent race conditions by properly handling asynchronous updates.
+
+### 3. Enhance Client Display Functions
+
+- **Dynamic Exits Display**: Show whether adjacent rooms are full.
 
   ```python
-  async def handle_player_messages(self, websocket, player_id):
-      try:
-          async for message in websocket:
-              await self.process_message(message, player_id)
-      except websockets.exceptions.ConnectionClosedError:
-          logging.warning(f"Connection closed unexpectedly for player {player_id}.")
-      finally:
-          del self.players[player_id]
+  def display_available_exits(self, exits_status):
+      for exit, status in exits_status.items():
+          full_indicator = "(FULL)" if status == "full" else ""
+          print(f"  - {exit} {full_indicator}")
   ```
 
-- **Use Type Hints**: Enhance code readability and maintainability.
+### 4. Expand Testing
 
-  ```python
-  def validate_move(self, current_location: str, destination: str) -> bool:
-      return destination in self.map_structure.get(current_location, [])
-  ```
+- **Concurrent Movement Tests**: Simulate multiple players attempting to enter the same room simultaneously.
 
-- **Write Tests Early**: Implement tests alongside development for each component.
+- **Edge Case Handling**: Test scenarios where players disconnect unexpectedly.
 
 ---
 
 ## Conclusion
 
-By implementing the specifications outlined in Version 1.0, you will establish the foundational infrastructure for a multiplayer text-based Among Us game. This includes:
+Version 1.1 enhances the gameplay experience by introducing:
 
-- A robust **client-server architecture** using WebSockets.
-- Basic **player movement** within a simplified map.
-- A clear **communication protocol** for client-server interactions.
-- Essential **testing** and **logging** practices.
+- **Visual Map Representation**: Helps players navigate the game world more intuitively.
+- **Room Capacity Limits**: Adds strategic depth by limiting room occupancy.
+- **Improved Commands**: Offers players more information and control over their in-game actions.
+- **Enhanced Error Handling**: Provides clearer feedback, improving user experience.
 
-These components will serve as the building blocks for future updates, where more complex game mechanics and features will be introduced.
+These improvements build upon the foundation laid in Version 1.0, setting the stage for more complex game mechanics in future updates.
 
 ---
 
 ## Next Steps
 
-After completing Version 1.0, the next phase will focus on:
+In the subsequent version, **Version 1.2**, the focus will be on:
 
-- **Introducing Player Roles**: Assigning roles such as Crewmate and Impostor.
-- **Implementing Game Actions**: Adding actions like killing and reporting.
+- **Server Management**: Implementing server player limits and game start conditions.
+- **Advanced State Management**: Enhancing player state tracking and room consistency.
+- **Performance Optimizations**: Improving efficiency for better scalability.
 
 ---
 
-# Appendix: Summary of Key Components
+# Appendix: Summary of Key Enhancements in Version 1.1
 
-- **Map Structure**: A simplified graph representing rooms and their connections.
-- **Player State**: Each player has a unique ID, current location, and WebSocket connection.
-- **Commands**:
-  - `move <destination>`: Move to an adjacent room.
-  - `look`: Display current location and exits.
-- **Message Protocol**:
-  - **Action Messages**: Client-to-server messages for player actions.
-  - **State Messages**: Server-to-client messages updating the game state.
+- **Map Visualization**:
+  - ASCII map displayed via the `map` command.
+  - Current location highlighted for easy reference.
+
+- **Room Capacity System**:
+  - Standard rooms: Max 5 players.
+  - Cafeteria: Max 10 players.
+  - Capacity checks before allowing movement.
+
+- **Command Improvements**:
+  - New `map` command for map display.
+  - Enhanced `look` command with occupancy info and exit statuses.
+
+- **Error Handling**:
+  - Specific error messages for full rooms and invalid moves.
+  - Error messages sent via a standardized protocol.
+
+- **Server Enhancements**:
+  - Room occupancy tracking.
+  - Logging of room states and occupancy changes.
+
+---
+
+# Testing Guidelines
+
+## 1. Map Structure Tests
+
+- **Verify Room Connections**: Ensure all rooms are connected as per the specified map.
+
+- **Test Map Display**:
+
+  - Current location is correctly highlighted.
+  - Connections between rooms are accurately represented.
+
+## 2. Room Capacity Tests
+
+- **Attempt to Enter Full Room**:
+
+  - Player should receive an error message.
+  - Player's location should remain unchanged.
+
+- **Room Occupancy Updates**:
+
+  - Occupancy counts should increment and decrement appropriately with player movements.
+
+## 3. Command Functionality Tests
+
+- **`map` Command**:
+
+  - Displays the map correctly.
+  - Highlights the player's current location.
+
+- **`look` Command**:
+
+  - Shows current room, number of players, and available exits.
+  - Indicates if adjacent rooms are full.
+
+## 4. Error Handling Tests
+
+- **Invalid Movement**:
+
+  - Moving to a non-adjacent room.
+  - Moving to a room that doesn't exist.
+
+- **Full Room Attempt**:
+
+  - Verify error message is received.
+  - Check that the player's state remains consistent.
+
+## 5. Concurrency Tests
+
+- **Simultaneous Movements**:
+
+  - Multiple players attempting to enter the same room at once.
+  - Ensure room capacity is not exceeded.
+
+## 6. Logging Tests
+
+- **Log Contents**:
+
+  - Verify that logs include room occupancy updates.
+  - Check for accurate timestamps and player IDs.
+
+---
+
+# Technical Notes
+
+- **Thread Safety**: Ensure that updates to shared resources (like `room_occupancy`) are thread-safe in the asynchronous environment.
+
+- **Performance Considerations**:
+
+  - Optimize data structures for quick lookups.
+  - Minimize blocking operations in asynchronous code.
+
+- **Scalability**: Although the current player limit is 10, design the system to handle potential increases in future versions.
+
+---
+
+# Final Remarks
+
+Implementing these enhancements will provide players with a more immersive and strategic gameplay experience. By carefully managing room capacities and improving navigational tools, players are encouraged to make thoughtful decisions, laying the groundwork for the complex interactions planned in future updates.
+
+---
+
+# Installation and Setup
+
+## Dependencies
+
+Ensure all dependencies are installed as per the updated `requirements.txt`.
+
+```bash
+pip install -r requirements.txt
+```
+
+## Running the Server
+
+```bash
+python server.py
+```
+
+## Running the Client
+
+```bash
+python client.py
+```
+
