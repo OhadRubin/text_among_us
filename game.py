@@ -23,6 +23,12 @@ class GameServer:
         self.setup_logging()
         self.exit_buttons = {}  # Store button rectangles for click detection
         self.game_started = False
+        self.current_phase = "free_roam"
+        self.discussion_timer = 60  # Configurable discussion duration in seconds
+        self.voting_timer = 30      # Configurable voting duration in seconds
+        self.votes = {}             # player_id -> voted_player_id or "skip"
+        self.emergency_meetings = {}  # player_id -> number of meetings called
+        self.max_emergency_meetings = 1  # Configurable max number of meetings per player
 
     def setup_logging(self):
         logging.basicConfig(
@@ -82,7 +88,7 @@ class GameServer:
         await self.update_room_players(initial_location)
 
         # Check if we should start the game and assign roles
-        if len(self.players) >= 4 and not self.game_started:
+        if len(self.players) >= 6 and not self.game_started:
             self.assign_roles()
             self.game_started = True
             logging.info("Game started with {} players".format(len(self.players)))
@@ -129,7 +135,7 @@ class GameServer:
 
     def assign_roles(self):
         # Check if there are enough players
-        if len(self.players) < 4:
+        if len(self.players) < 6:
             return
 
         player_ids = list(self.players.keys())
@@ -155,22 +161,31 @@ class GameServer:
     async def process_message(self, message, player_id):
         data = json.loads(message)
         if data["type"] == "action":
-            if self.player_status.get(player_id) != "alive":
-                await self.send_error(
-                    player_id, "You are dead and cannot perform actions."
-                )
-                return
             action = data["payload"]["action"]
-            if action == "move":
-                destination = data["payload"]["destination"]
-                await self.handle_move(player_id, destination)
-            elif action == "kill":
-                target_id = data["payload"].get("target")
-                await self.handle_kill(player_id, target_id)
-            elif action == "report":
-                await self.handle_report(player_id)
+            if self.current_phase == "discussion":
+                if action == "chat":
+                    message_text = data["payload"]["message"]
+                    await self.handle_chat(player_id, message_text)
+            elif self.current_phase == "voting":
+                if action == "vote":
+                    voted_player = data["payload"]["vote"]
+                    await self.handle_vote(player_id, voted_player)
             else:
-                await self.send_error(player_id, "Invalid action.")
+                if self.player_status.get(player_id) != "alive":
+                    await self.send_error(player_id, "You are dead and cannot perform actions.")
+                    return
+                if action == "move":
+                    destination = data["payload"]["destination"]
+                    await self.handle_move(player_id, destination)
+                elif action == "kill":
+                    target_id = data["payload"].get("target")
+                    await self.handle_kill(player_id, target_id)
+                elif action == "report":
+                    await self.handle_report(player_id)
+                elif action == "call_meeting":
+                    await self.handle_emergency_meeting(player_id)
+                else:
+                    await self.send_error(player_id, "Invalid action.")
 
     def validate_move(self, current_location, destination):
         return destination in self.map_structure.get(current_location, [])
@@ -273,6 +288,9 @@ class GameServer:
             }
         )
 
+        # Start the discussion phase after a report
+        await self.start_discussion_phase()
+
     def validate_report(self, reporter_id):
         # Check if reporter is alive
         if self.player_status.get(reporter_id) != "alive":
@@ -284,8 +302,10 @@ class GameServer:
             location == reporter_location for body_id, location in self.bodies.items()
         )
 
-    async def broadcast_message(self, message):
-        for player in self.players.values():
+    async def broadcast_message(self, message, alive_only=False):
+        for player_id, player in self.players.items():
+            if alive_only and self.player_status.get(player_id) != "alive":
+                continue
             await player["websocket"].send(json.dumps(message))
 
     async def send_state_update(self, player_id):
@@ -343,6 +363,124 @@ class GameServer:
         logging.info("Server started on ws://localhost:8765")
         await server.wait_closed()
 
+    async def start_discussion_phase(self):
+        self.current_phase = "discussion"
+        self.votes.clear()
+        # Notify all players about the discussion phase
+        await self.broadcast_message({
+            "type": "phase_update",
+            "payload": {
+                "phase": "discussion",
+                "duration": self.discussion_timer
+            }
+        })
+        # Start the discussion timer
+        await asyncio.sleep(self.discussion_timer)
+        # Transition to voting phase
+        await self.start_voting_phase()
+
+    async def start_voting_phase(self):
+        self.current_phase = "voting"
+        # Notify all players about the voting phase
+        await self.broadcast_message({
+            "type": "phase_update",
+            "payload": {
+                "phase": "voting",
+                "duration": self.voting_timer
+            }
+        })
+        # Start the voting timer
+        await asyncio.sleep(self.voting_timer)
+        # Tally votes and handle ejection
+        await self.tally_votes()
+        # Return to free roam phase
+        self.current_phase = "free_roam"
+        await self.broadcast_message({
+            "type": "phase_update",
+            "payload": {
+                "phase": "free_roam"
+            }
+        })
+
+    async def handle_chat(self, player_id, message_text):
+        if self.player_status.get(player_id) != "alive":
+            await self.send_error(player_id, "Dead players cannot chat.")
+            return
+        # Broadcast chat message to all alive players
+        await self.broadcast_message({
+            "type": "chat",
+            "payload": {
+                "player_id": player_id,
+                "message": message_text
+            }
+        }, alive_only=True)
+
+    async def handle_vote(self, player_id, voted_player):
+        if self.player_status.get(player_id) != "alive":
+            await self.send_error(player_id, "Dead players cannot vote.")
+            return
+        if player_id in self.votes:
+            await self.send_error(player_id, "You have already voted.")
+            return
+        if voted_player not in self.players and voted_player != "skip":
+            await self.send_error(player_id, "Invalid vote.")
+            return
+        self.votes[player_id] = voted_player
+        await self.players[player_id]["websocket"].send(json.dumps({
+            "type": "vote_confirmation",
+            "payload": {
+                "message": "Vote received."
+            }
+        }))
+
+    async def tally_votes(self):
+        vote_counts = {}
+        for vote in self.votes.values():
+            vote_counts[vote] = vote_counts.get(vote, 0) + 1
+        if vote_counts:
+            max_votes = max(vote_counts.values())
+            candidates = [pid for pid, count in vote_counts.items() if count == max_votes]
+            if len(candidates) == 1 and candidates[0] != "skip":
+                ejected_player = candidates[0]
+                self.player_status[ejected_player] = "dead"
+                await self.broadcast_message({
+                    "type": "event",
+                    "payload": {
+                        "event": "player_ejected",
+                        "player_id": ejected_player,
+                        "role_revealed": self.roles.get(ejected_player)
+                    }
+                })
+            else:
+                # Tie or majority chose to skip
+                await self.broadcast_message({
+                    "type": "event",
+                    "payload": {
+                        "event": "no_ejection",
+                        "message": "No one was ejected."
+                    }
+                })
+        else:
+            # No votes cast
+            await self.broadcast_message({
+                "type": "event",
+                "payload": {
+                    "event": "no_ejection",
+                    "message": "No votes cast. No one was ejected."
+                }
+            })
+
+    async def handle_emergency_meeting(self, player_id):
+        if self.player_status.get(player_id) != "alive":
+            await self.send_error(player_id, "Dead players cannot call meetings.")
+            return
+        meetings_called = self.emergency_meetings.get(player_id, 0)
+        if meetings_called >= self.max_emergency_meetings:
+            await self.send_error(player_id, "No emergency meetings left.")
+            return
+        self.emergency_meetings[player_id] = meetings_called + 1
+        await self.start_discussion_phase()
+
 
 class CliGameClient:
     def __init__(self):
@@ -359,6 +497,7 @@ class CliGameClient:
              |              |             |
         [storage]---[lower_engine]---[electrical]
         """
+        self.game_phase = "free_roam"
 
     def setup_logging(self):
         logging.basicConfig(
@@ -424,6 +563,24 @@ class CliGameClient:
                     elif event == "player_killed":
                         print(f"\nPlayer {payload.get('victim')} was killed")
                         print("> ", end="", flush=True)
+                elif message_type == "phase_update":
+                    payload = data.get("payload")
+                    phase = payload.get("phase")
+                    self.game_phase = phase
+                    if phase == "discussion":
+                        print("\n--- Discussion Phase Started ---")
+                    elif phase == "voting":
+                        print("\n--- Voting Phase Started ---")
+                    elif phase == "free_roam":
+                        print("\n--- Free Roam Phase Resumed ---")
+                elif message_type == "chat":
+                    payload = data.get("payload")
+                    player_id = payload.get("player_id")
+                    message_text = payload.get("message")
+                    print(f"\n[Player {player_id[:8]}] says: {message_text}")
+                    print("> ", end="", flush=True)
+                elif message_type == "vote_confirmation":
+                    print("Your vote has been recorded.")
                 else:
                     print("Received unknown message type.")
         except websockets.exceptions.ConnectionClosed:
@@ -441,26 +598,48 @@ class CliGameClient:
 
     async def send_commands(self):
         while self.running:
-            input_line = await asyncio.get_event_loop().run_in_executor(
-                None, input, "> "
-            )
-
-            command, args = self.parse_command(input_line)
-            if command == "move" and args:
-                await self.send_move_command(args[0])
-            elif command == "kill" and args:
-                await self.send_kill_command(args[0])
-            elif command == "report":
-                await self.send_report_command()
-            elif command == "look":
-                self.display_current_location()
-            elif command == "help":
-                self.display_help()
-            elif command in ["exit", "q"]:
-                await self.disconnect()
-                break
+            if self.game_phase == "discussion":
+                # Accept chat messages
+                input_line = await asyncio.get_event_loop().run_in_executor(None, input, "> ")
+                await self.send_chat_command(input_line)
+            elif self.game_phase == "voting":
+                # Prompt for voting
+                voted_player_id = await asyncio.get_event_loop().run_in_executor(None, input, "Vote for player ID (or 'skip'): ")
+                await self.send_vote_command(voted_player_id.strip())
             else:
-                print("Unknown command. Type 'help' for available commands.")
+                input_line = await asyncio.get_event_loop().run_in_executor(None, input, "> ")
+                command, args = self.parse_command(input_line)
+                if command == "move" and args:
+                    await self.send_move_command(args[0])
+                elif command == "kill" and args:
+                    await self.send_kill_command(args[0])
+                elif command == "report":
+                    await self.send_report_command()
+                elif command == "look":
+                    self.display_current_location()
+                elif command == "help":
+                    self.display_help()
+                elif command in ["exit", "q"]:
+                    await self.disconnect()
+                    break
+                else:
+                    print("Unknown command. Type 'help' for available commands.")
+
+    async def send_chat_command(self, message_text):
+        action_message = {
+            "type": "action",
+            "payload": {"action": "chat", "message": message_text},
+            "player_id": self.player_id,
+        }
+        await self.websocket.send(json.dumps(action_message))
+
+    async def send_vote_command(self, voted_player_id):
+        action_message = {
+            "type": "action",
+            "payload": {"action": "vote", "vote": voted_player_id},
+            "player_id": self.player_id,
+        }
+        await self.websocket.send(json.dumps(action_message))
 
     async def send_move_command(self, destination):
         if self.player_id is None:
@@ -563,6 +742,11 @@ class GuiGameClient:
         self.show_murder_overlay = False
         self.murder_overlay_start = 0
         self.MURDER_OVERLAY_DURATION = 3000  # Display for 3 seconds
+        self.game_phase = "free_roam"
+        self.chat_messages = []
+        self.chat_input_active = False
+        self.vote_options = []
+        self.selected_vote = None
 
     def setup_logging(self):
         logging.basicConfig(
@@ -657,6 +841,24 @@ class GuiGameClient:
                         )
                     elif event == "player_killed":
                         logging.info(f"Player {payload.get('victim')} was killed")
+                elif message_type == "phase_update":
+                    payload = data.get("payload")
+                    phase = payload.get("phase")
+                    self.game_phase = phase
+                    if phase == "discussion":
+                        self.show_discussion_phase()
+                    elif phase == "voting":
+                        self.show_voting_phase()
+                    elif phase == "free_roam":
+                        self.hide_phase_overlays()
+                elif message_type == "chat":
+                    # Display chat messages
+                    payload = data.get("payload")
+                    player_id = payload.get("player_id")
+                    message_text = payload.get("message")
+                    self.chat_messages.append(f"[{player_id[:8]}]: {message_text}")
+                elif message_type == "vote_confirmation":
+                    logging.info("Your vote has been recorded.")
                 else:
                     logging.info("Received unknown message type.")
         except websockets.exceptions.ConnectionClosed:
@@ -697,6 +899,15 @@ class GuiGameClient:
                     self.display_current_location()
                 elif event.key == pygame.K_m:
                     self.display_map()
+                elif self.game_phase == "discussion":
+                    if event.key == pygame.K_RETURN:
+                        message_text = self.get_chat_input()
+                        await self.send_chat_command(message_text)
+                elif self.game_phase == "voting":
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        await self.handle_vote_selection(event.pos)
+                    elif event.key == pygame.K_RETURN and self.selected_vote:
+                        await self.send_vote_command(self.selected_vote)
 
     async def handle_click(self, position, button):
         # Check action buttons first
@@ -990,6 +1201,33 @@ class GuiGameClient:
         self.show_murder_overlay = True
         self.murder_overlay_start = pygame.time.get_ticks()
 
+    def show_discussion_phase(self):
+        # Display discussion overlay and enable chat input
+        self.chat_messages.clear()
+        self.chat_input_active = True
+
+    def show_voting_phase(self):
+        # Display voting overlay with list of players
+        self.vote_options = [
+            pid for pid, status in self.player_status.items()
+            if status == "alive" and pid != self.player_id
+        ]
+        self.vote_options.append("skip")
+        self.selected_vote = None
+        self.chat_input_active = False  # Disable chat during voting
+
+    def hide_phase_overlays(self):
+        # Hide any phase-specific overlays
+        self.chat_input_active = False
+        self.vote_options.clear()
+        self.selected_vote = None
+
+    def get_chat_input(self):
+        # Display chat input overlay and get user input
+        pygame.draw.rect(self.screen, (0, 0, 0), (0, 0, self.screen.get_width(), self.screen.get_height()))
+        pygame.draw.rect(self.screen, (255, 255, 255), (10, 10, self.screen.get_width() - 20, 30))
+        pygame.draw.rect(self.screen, (0, 0, 0), (10, 10, self.screen.get_width() - 20, 30), 2)
+        pygame.draw.rect(self.screen, (255, 255, 255), (10, 10, self.screen.get_width() - 20, 30), 2)
 
 def start_gui_client():
     client = GuiGameClient()
