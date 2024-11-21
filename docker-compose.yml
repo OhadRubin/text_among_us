@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_WS_URL=ws://localhost:8009/ws
+      - NODE_ENV=development
+    depends_on:
+      - proxy_server
+
+  proxy_server:
+    build:
+      context: ./backend/proxy
+      dockerfile: Dockerfile
+    ports:
+      - "8009:8009"
+    environment:
+      - GAME_SERVER_URL=ws://game_server:8765
+    depends_on:
+      - game_server
+
+  game_server:
+    build:
+      context: ./backend/game
+      dockerfile: Dockerfile
+    ports:
+      - "8765:8765"
+    volumes:
+      - ./backend/game:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DEBUG=1
+
+networks:
+  default:
+    driver: bridge

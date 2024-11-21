@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  game-server:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    command: python simple_server.py
+    ports:
+      - "8765:8765"
+    networks:
+      - game-network
+
+  proxy-server:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    command: python proxy.py
+    ports:
+      - "8009:8009"
+    depends_on:
+      - game-server
+    networks:
+      - game-network
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - proxy-server
+    networks:
+      - game-network
+
+networks:
+  game-network:
+    driver: bridge 
