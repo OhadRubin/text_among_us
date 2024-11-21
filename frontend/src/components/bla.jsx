@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, LogOut, Navigation, Skull, Flag, MessageCircle, Users } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+
+const Card = ({ children, className = '' }) => <div className={`bg-white rounded-lg shadow p-4 ${className}`}>{children}</div>;
+const CardHeader = ({ children }) => <div className="mb-4">{children}</div>;
+const CardTitle = ({ children }) => <h2 className="text-xl font-bold">{children}</h2>;
+const CardContent = ({ children }) => <div>{children}</div>;
 
 const GameClient = () => {
     const [messages, setMessages] = useState([]);
@@ -16,7 +19,8 @@ const GameClient = () => {
         player_id: null
     });
     const [connected, setConnected] = useState(false);
-    const [ws, setWs] = useState(null);
+    const ws = useRef(null);
+    const reconnectTimeout = useRef(null);
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -26,29 +30,56 @@ const GameClient = () => {
     };
 
     useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
+        let socket;
 
-    useEffect(() => {
-        const socket = new WebSocket('ws://localhost:8009/ws');
+        const connectWebSocket = () => {
+            socket = new WebSocket('ws://localhost:8009');
+            ws.current = socket;
 
-        socket.onopen = () => {
-            setConnected(true);
-            addMessage('System', 'Connected to game server');
+            socket.onopen = () => {
+                setConnected(true);
+                addMessage('System', 'Connected to game server');
+            };
+
+            socket.onerror = (error) => {
+                addMessage('System', 'Connection error');
+                setConnected(false);
+            };
+
+            socket.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    handleServerMessage(data);
+                } catch (error) {
+                    console.error('Failed to parse message:', error);
+                    addMessage('System', 'Received invalid message from server');
+                }
+            };
+
+            socket.onclose = () => {
+                setConnected(false);
+                addMessage('System', 'Disconnected from server');
+
+                if (reconnectTimeout.current) {
+                    clearTimeout(reconnectTimeout.current);
+                }
+
+                reconnectTimeout.current = setTimeout(() => {
+                    connectWebSocket();
+                }, 5000);
+            };
         };
 
-        socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            handleServerMessage(data);
-        };
+        connectWebSocket();
 
-        socket.onclose = () => {
-            setConnected(false);
-            addMessage('System', 'Disconnected from server');
+        return () => {
+            if (socket) {
+                socket.close();
+            }
+            if (reconnectTimeout.current) {
+                clearTimeout(reconnectTimeout.current);
+            }
         };
-
-        setWs(socket);
-        return () => socket.close();
     }, []);
 
     const addMessage = (sender, text) => {
@@ -56,9 +87,10 @@ const GameClient = () => {
     };
 
     const handleServerMessage = (data) => {
+        console.log('Received message:', data);
         switch (data.type) {
             case 'state_update':
-                setGameState(data);
+                setGameState(data.state || data);
                 break;
             case 'player_connected':
                 addMessage('System', `Player ${data.player_id} connected at ${data.location}`);
@@ -86,8 +118,15 @@ const GameClient = () => {
     };
 
     const sendCommand = (action, params = {}) => {
-        if (ws && connected) {
-            ws.send(JSON.stringify({ action, ...params }));
+        if (!ws.current || ws.current.readyState !== WebSocket.OPEN) {
+            addMessage('System', 'Not connected to server');
+            return;
+        }
+        try {
+            ws.current.send(JSON.stringify({ action, ...params }));
+        } catch (error) {
+            console.error('Failed to send message:', error);
+            addMessage('System', 'Failed to send message');
         }
     };
 
@@ -102,7 +141,7 @@ const GameClient = () => {
     const handleChat = (e) => {
         e.preventDefault();
         if (inputMessage.trim()) {
-            sendCommand('chat', { message: inputMessage });
+            sendCommand('chat', { message: inputMessage.trim() });
             setInputMessage('');
         }
     };
@@ -216,3 +255,5 @@ const GameClient = () => {
 };
 
 export default GameClient;
+
+GameClient.jsx

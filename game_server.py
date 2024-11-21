@@ -273,8 +273,20 @@ class GameServer:
 
     async def broadcast(self, message):
         message_str = json.dumps(message)
-        for player in self.players.values():
-            await player.websocket.send(message_str)
+        # Create a list of players to remove
+        disconnected_players = []
+        
+        for player_id, player in self.players.items():
+            try:
+                await player.websocket.send(message_str)
+            except websockets.exceptions.ConnectionClosedError:
+                # Mark this player for removal
+                disconnected_players.append(player_id)
+                self.logger.info(f"Player {player_id} disconnected during broadcast")
+        
+        # Remove disconnected players
+        for player_id in disconnected_players:
+            del self.players[player_id]
 
     def initialize_map(self):
         return {
