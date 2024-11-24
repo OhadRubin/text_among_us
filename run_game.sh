@@ -25,17 +25,15 @@ tmux new-session -d -s among-us-dev
 
 # Split window into three panes
 tmux split-window -h
-tmux split-window -v
+# tmux split-window -v
 
 # Send commands to each pane
 # Game server with auto-reload
 tmux send-keys -t among-us-dev:0.0 "python game_server.py" C-m
 
 # Proxy server with auto-reload
-tmux send-keys -t among-us-dev:0.1 "uvicorn proxy:app --host 0.0.0.0 --port 8009 --reload" C-m
-
 # Frontend with development server
-tmux send-keys -t among-us-dev:0.2 "cd frontend && npm run dev" C-m
+tmux send-keys -t among-us-dev:0.1 "cd frontend && npm run dev" C-m
 
 # Attach to the tmux session
 tmux attach-session -t among-us-dev

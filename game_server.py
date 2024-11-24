@@ -31,7 +31,7 @@ class GameServer:
         self.votes = {}
         self.logger = self.setup_logger()
         self.game_started = False
-        self.min_players = 6
+        self.min_players = 3
         self.impostor_ratio = 0.2
         self.discussion_duration = 60
         self.voting_duration = 30
@@ -76,11 +76,12 @@ class GameServer:
         except websockets.exceptions.ConnectionClosedError:
             self.logger.warning(f"Player {player_id} disconnected unexpectedly.")
         finally:
-            del self.players[player_id]
-            await self.broadcast(
-                {"type": "player_disconnected", "player_id": player_id}
-            )
-            self.logger.info(f"Player {player_id} disconnected.")
+            if player_id in self.players:
+                del self.players[player_id]
+                await self.broadcast(
+                    {"type": "player_disconnected", "player_id": player_id}
+                )
+                self.logger.info(f"Player {player_id} disconnected.")
 
     def assign_roles(self):
         player_ids = list(self.players.keys())
@@ -117,15 +118,19 @@ class GameServer:
         if destination in self.map_layout.get(player.location, []):
             old_location = player.location
             player.location = destination
-            await self.broadcast(
-                {
-                    "type": "player_moved",
-                    "player_id": player_id,
-                    "from": old_location,
-                    "to": destination,
-                }
-            )
-            await self.send_state_update(player_id)
+            
+            # Broadcast movement to everyone
+            await self.broadcast({
+                "type": "player_moved",
+                "player_id": player_id,
+                "from": old_location,
+                "to": destination,
+            })
+            
+            # Send state updates to all players in both old and new locations
+            for pid, p in self.players.items():
+                if p.location in [old_location, destination]:
+                    await self.send_state_update(pid)
         else:
             await self.send_error(player_id, "Invalid move.")
 
