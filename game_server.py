@@ -6,6 +6,11 @@ import json
 import logging
 import random
 from collections import defaultdict
+from pydantic import BaseModel
+from typing import Dict, List, Optional
+from dataclasses import dataclass, field
+from pydantic import ValidationError
+from enum import Enum
 
 # Simplified Game Server for an Among Us-like game with an event-based architecture
 
@@ -29,34 +34,109 @@ class EventManager:
                 await callback(data)
 
 
-class Player:
+def event(event_type):
+    def decorator(func):
+        func._event_type = event_type
+        return func
+
+    return decorator
+
+
+class TaskState(Enum):
+    INACTIVE = "INACTIVE"
+    ACTIVE = "ACTIVE" 
+    COMPLETED = "COMPLETED"
+    INTERRUPTED = "INTERRUPTED"
+
+    def __str__(self):
+        return self.value
+    
+    def to_json(self):
+        return self.value
+
+
+class PlayerRole(Enum):
+    IMPOSTOR = "Impostor"
+    CREWMATE = "Crewmate"
+
+    def __str__(self):
+        return self.value
+    
+    def to_json(self):
+        return self.value
+
+class Task(BaseModel):
+    """Represents a task in the game."""
+    name: str
+    room: str
+    turns_remaining: int
+    state: TaskState = TaskState.INACTIVE
+    og_number_of_turns: Optional[int] = None
+
+    def start(self) -> bool:
+        self.og_number_of_turns = self.turns_remaining
+        if self.state == TaskState.INACTIVE:
+            self.state = TaskState.ACTIVE
+            return True
+        return False
+
+    def tick(self) -> bool:
+        if self.state == TaskState.ACTIVE:
+            self.turns_remaining -= 1
+            if self.turns_remaining <= 0:
+                self.state = TaskState.COMPLETED
+                return True
+        return False
+
+    def interrupt(self) -> bool:
+        if self.state == TaskState.ACTIVE:
+            self.state = TaskState.INTERRUPTED
+            self.turns_remaining = self.og_number_of_turns
+            return True
+        return False
+
+
+from typing import Any
+class Player(BaseModel):
     """Represents a player in the game."""
+    id: str
+    websocket: Any
+    location: str = "cafeteria"
+    role: PlayerRole = PlayerRole.CREWMATE
+    is_alive: bool = True
+    emergency_meetings_left: int = 1
+    tasks: Optional[Dict[str, Task]] = None
+    active_task: Optional[str] = None
+    
+    def assign_tasks(self):
+        if self.role == PlayerRole.CREWMATE:
+            # this is just for now...
+            self.tasks = {f"Task 1": Task(name=f"Task 1", room="cafeteria", turns_remaining=1)}
+        else: # Impostor
+            self.tasks = dict()
 
-    def __init__(self, player_id, websocket):
-        self.id = player_id
-        self.websocket = websocket
-        self.location = "cafeteria"
-        self.role = "Crewmate"
-        self.is_alive = True
-        self.emergency_meetings_left = 1
 
-
+@dataclass
 class GameState:
     """Holds the current state of the game."""
+    players: Dict[str, Player] = field(default_factory=dict)
+    bodies: Dict[str, str] = field(default_factory=dict)
+    map_layout: Dict[str, List[str]] = field(default_factory=dict)
+    phase: str = "free_roam"
+    votes: Dict[str, str] = field(default_factory=dict)
+    game_started: bool = False
+    min_players: int = 3
+    impostor_ratio: float = 0.2
+    discussion_duration: int = 60
+    voting_duration: int = 30
+    max_emergency_meetings: int = 1
+    completed_tasks: int = 0
+    task_tick_interval: int = 5
+    logger: logging.Logger = field(init=False)
 
-    def __init__(self):
-        self.players = {}
-        self.bodies = {}  # Maps player_id to location where they died
-        self.map_layout = self.initialize_map()
-        self.phase = "free_roam"
-        self.votes = {}
-        self.game_started = False
-        self.min_players = 3
-        self.impostor_ratio = 0.2
-        self.discussion_duration = 60
-        self.voting_duration = 30
-        self.max_emergency_meetings = 1
+    def __post_init__(self):
         self.logger = self.setup_logger()
+        self.map_layout = self.initialize_map()
 
     def setup_logger(self):
         """Sets up the logger for the server."""
@@ -85,25 +165,30 @@ class GameState:
         }
 
 
+class GameEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, PlayerRole):
+            return obj.value
+        if isinstance(obj, Enum):
+            return obj.value
+        return super().default(obj)
+
+
 class GameServer:
     """Main game server class that orchestrates the game."""
 
     def __init__(self):
         self.event_manager = EventManager()
         self.state = GameState()
-        self.setup_event_listeners()
+        self.setup_event_handlers()
 
-    def setup_event_listeners(self):
-        """Registers event handlers with the EventManager."""
-        em = self.event_manager
-        em.register("player_connected", self.on_player_connected)
-        em.register("player_disconnected", self.on_player_disconnected)
-        em.register("action_move", self.on_action_move)
-        em.register("action_kill", self.on_action_kill)
-        em.register("action_report", self.on_action_report)
-        em.register("action_vote", self.on_action_vote)
-        em.register("action_call_meeting", self.on_action_call_meeting)
-        em.register("action_chat", self.on_action_chat)
+    def setup_event_handlers(self):
+        """Registers event handlers using the @event decorator."""
+        for attr_name in dir(self):
+            attr = getattr(self, attr_name)
+            if callable(attr) and hasattr(attr, "_event_type"):
+                event_type = attr._event_type
+                self.event_manager.register(event_type, attr)
 
     async def start_server(self):
         """Starts the WebSocket server."""
@@ -122,10 +207,10 @@ class GameServer:
                     "message": "Server is full"
                 }))
                 return
-            
+
             # Generate player ID first
             player_id = PLAYER_NAMES[len(self.state.players)]
-            player = Player(player_id, websocket)
+            player = Player(id=player_id, websocket=websocket)
             self.state.players[player_id] = player
 
             # Send initial welcome message
@@ -144,6 +229,10 @@ class GameServer:
                 self.state.game_started = True
                 self.state.logger.info(f"Game started with {len(self.state.players)} players.")
                 await self.broadcast({"type": "game_started"})
+
+            # assign tasks
+            for player in self.state.players.values():
+                player.assign_tasks()
 
             self.state.logger.info(f"Player {player_id} connected.")
 
@@ -174,6 +263,7 @@ class GameServer:
                 )
 
     # Event Handlers
+    @event("player_connected")
     async def on_player_connected(self, data):
         """Handles a new player connection event."""
         player_id = data["player_id"]
@@ -186,6 +276,7 @@ class GameServer:
             }
         )
 
+    @event("player_disconnected")
     async def on_player_disconnected(self, data):
         """Handles a player disconnection event."""
         player_id = data["player_id"]
@@ -199,6 +290,7 @@ class GameServer:
             )
             self.state.logger.info(f"Player {player_id} disconnected.")
 
+    @event("action_move")
     async def on_action_move(self, data):
         """Handles player movement actions."""
         player_id = data["player_id"]
@@ -225,6 +317,7 @@ class GameServer:
         else:
             await self.send_error(player_id, "Invalid move.")
 
+    @event("action_kill")
     async def on_action_kill(self, data):
         """Handles kill actions initiated by Impostors."""
         killer_id = data["player_id"]
@@ -234,7 +327,7 @@ class GameServer:
         if (
             killer
             and target
-            and killer.role == "Impostor"
+            and killer.role == PlayerRole.IMPOSTOR
             and killer.is_alive
             and target.is_alive
             and killer.location == target.location
@@ -253,6 +346,7 @@ class GameServer:
         else:
             await self.send_error(killer_id, "Invalid kill attempt.")
 
+    @event("action_report")
     async def on_action_report(self, data):
         """Handles body report actions."""
         reporter_id = data["player_id"]
@@ -263,6 +357,7 @@ class GameServer:
         else:
             await self.send_error(reporter_id, "No bodies to report here.")
 
+    @event("action_vote")
     async def on_action_vote(self, data):
         """Handles voting actions during the voting phase."""
         player_id = data["player_id"]
@@ -277,27 +372,29 @@ class GameServer:
         else:
             await self.send_error(player_id, "You have already voted.")
 
+    @event("action_call_meeting")
     async def on_action_call_meeting(self, data):
         """Handles emergency meeting calls."""
         player_id = data["player_id"]
         player = self.state.players[player_id]
-        
+
         # Check if player has meetings left
         if player.emergency_meetings_left > 0:
             # Decrement available meetings
             player.emergency_meetings_left -= 1
-            
+
             # Send notification about who called the meeting
             await self.broadcast({
                 "type": "emergency_meeting_called",
                 "player_id": player_id
             })
-            
+
             # Start discussion phase
             await self.start_discussion_phase()
         else:
             await self.send_error(player_id, "No emergency meetings left.")
 
+    @event("action_chat")
     async def on_action_chat(self, data):
         """Handles chat messages during the discussion phase."""
         player_id = data["player_id"]
@@ -335,7 +432,7 @@ class GameServer:
         impostor_ids = random.sample(player_ids, impostor_count)
         for player_id in player_ids:
             player = self.state.players[player_id]
-            player.role = "Impostor" if player_id in impostor_ids else "Crewmate"
+            player.role = PlayerRole.IMPOSTOR if player_id in impostor_ids else PlayerRole.CREWMATE
             asyncio.create_task(self.send_state_update(player_id))
 
     async def start_discussion_phase(self):
@@ -343,6 +440,10 @@ class GameServer:
         self.state.phase = "discussion"
         self.state.votes.clear()
         
+        # Interrupt tasks for all players
+        for player_id, player in self.state.players.items():
+            await self.interrupt_player_task(player_id, reason="discussion")
+
         # Send state updates without waiting
         for player_id, player in self.state.players.items():
             location = player.location
@@ -361,7 +462,7 @@ class GameServer:
                 "emergency_meetings_left": player.emergency_meetings_left,
             }
             asyncio.create_task(self.send_message(player_id, message))
-        
+
         # Start phase timer in a separate task
         asyncio.create_task(self.run_discussion_timer())
 
@@ -442,13 +543,11 @@ class GameServer:
         """Sends an error message to a specific player."""
         await self.send_message(player_id, {"type": "error", "message": message})
 
-    async def send_message(self, player_id, message):
+    async def send_message(self, player_id: str, message_dict: dict):
         """Sends a message to a specific player."""
         player = self.state.players[player_id]
         try:
-            self.state.logger.info(f"Sending message to {player_id}: {message['type']}")
-            await player.websocket.send(json.dumps(message))
-            self.state.logger.info(f"Message sent successfully to {player_id}")
+            await player.websocket.send(json.dumps(message_dict, cls=GameEncoder))
         except websockets.exceptions.ConnectionClosedError:
             self.state.logger.warning(
                 f"Could not send message to {player_id}; connection closed."
@@ -458,17 +557,14 @@ class GameServer:
 
     async def broadcast(self, message):
         """Broadcasts a message to all connected players."""
-        message_str = json.dumps(message)
-        self.state.logger.info(f"Broadcasting message type: {message['type']}")
+        message_str = json.dumps(message, cls=GameEncoder)
         disconnected_players = []
 
-        # Create a copy of players to avoid modification during iteration
         players_copy = dict(self.state.players)
-        
+
         for player_id, player in players_copy.items():
             try:
                 await player.websocket.send(message_str)
-                self.state.logger.info(f"Broadcast successful to {player_id}")
             except websockets.exceptions.ConnectionClosedError:
                 disconnected_players.append(player_id)
                 self.state.logger.warning(
@@ -482,6 +578,47 @@ class GameServer:
             await self.event_manager.dispatch(
                 "player_disconnected", {"player_id": player_id}
             )
+
+    def validate_task_start(self, player_id: str, task_name: str) -> tuple[bool, str]:
+        player = self.players[player_id]
+
+        # Follow validation order from spec:
+        if not player.is_alive:
+            return False, "Player is not alive"
+        if self.phase != "free_roam":
+            return False, "Not in free roam phase"
+        if task_name not in player.tasks:
+            return False, "Task not assigned to player"
+        return True, None
+
+    @event("action_task")
+    async def on_action_task(self, data: dict):
+        player_id = data["player_id"]
+        task_name = data["task_name"]
+
+        valid, reason = self.validate_task_start(player_id, task_name)
+        if not valid:
+            await self.send_error(player_id, reason)
+            return
+
+        # Start the task
+        player = self.players[player_id]
+        task = player.tasks[task_name]
+        task.start()
+        player.active_task = task_name
+
+        # Broadcast updates
+        await self.broadcast_task_progress(player_id, task)
+
+    async def broadcast_task_progress(self, player_id: str, task: Task):
+        # need to sleep for a duration of a tick (do it with asyncio.create_task )
+        while task.state == TaskState.ACTIVE:
+            asyncio.create_task(self.tick_task(player_id, task.name))
+
+    async def tick_task(self, player_id: str, task_name: str):
+        await asyncio.sleep(self.state.task_tick_interval)
+        task = self.players[player_id].tasks[task_name]
+        task.tick()
 
 
 if __name__ == "__main__":
